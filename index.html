@@ -3,34 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crispy Chicken | Enterprise BI Ultimate 2.0</title>
-    <!-- Font Awesome -->
+    <title>Crispy Chicken | Enterprise BI Ultimate 2.1</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Light Theme (Default) */
+            /* Light Theme */
             --primary: #f59e0b;      /* Amber/Orange */
             --primary-dark: #b45309;
             --primary-light: #fcd34d;
-            
-            --secondary: #1e293b;   /* Slate 800 */
-            --bg-body: #f1f5f9;     /* Slate 100 */
+            --secondary: #1e293b;
+            --bg-body: #f1f5f9;
             --bg-card: #ffffff;
             --border: #e2e8f0;
             --text-main: #0f172a;
             --text-muted: #64748b;
-            
             --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --radius: 12px;
             --header-height: 70px;
         }
 
-        /* Dark Theme */
         body.dark-mode {
             --secondary: #0f172a;
             --bg-body: #020617;
@@ -42,324 +35,96 @@
         }
 
         * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--bg-body); color: var(--text-main); height: 100vh; display: flex; overflow: hidden; transition: background-color 0.3s; }
 
-        body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            margin: 0; padding: 0;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            height: 100vh;
-            display: flex;
-            overflow: hidden;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* --- Sidebar --- */
-        aside {
-            width: 260px;
-            background-color: var(--secondary);
-            color: #cbd5e1;
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-            z-index: 50;
-        }
-
-        .brand {
-            padding: 24px;
-            background: rgba(255,255,255,0.05);
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .brand i { color: var(--primary); font-size: 1.4rem; }
-        .brand span { color: white; }
-
-        .nav-menu { flex: 1; overflow-y: auto; padding: 15px 10px; }
-
-        .nav-item {
-            padding: 12px 15px;
-            margin-bottom: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        .nav-item:hover { background-color: rgba(255,255,255,0.08); color: white; }
-        .nav-item.active {
-            background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(0,0,0,0) 100%);
-            color: var(--primary);
-            border-left: 3px solid var(--primary);
-        }
-
-        /* --- Main Layout --- */
+        /* --- Layout --- */
+        aside { width: 260px; background-color: var(--secondary); color: #cbd5e1; display: flex; flex-direction: column; flex-shrink: 0; transition: transform 0.3s ease; z-index: 50; }
         main { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
 
-        /* --- Header --- */
-        header {
-            background: var(--bg-card);
-            height: var(--header-height);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 24px;
-            flex-shrink: 0;
-            z-index: 40;
-        }
-        .header-left h1 { margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--text-main); }
-        .header-left span { color: var(--text-muted); font-weight: 400; font-size: 0.9em; }
-
-        .header-controls { display: flex; gap: 12px; align-items: center; }
+        /* --- Components --- */
+        .brand { padding: 24px; background: rgba(255,255,255,0.05); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .brand i { color: var(--primary); }
         
-        .control-group {
-            background: var(--bg-body);
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            display: flex; align-items: center; gap: 8px;
-        }
-        select {
-            border: none; background: transparent;
-            font-weight: 600; font-size: 0.9rem;
-            color: var(--text-main); cursor: pointer;
-        }
+        .nav-menu { flex: 1; overflow-y: auto; padding: 15px 10px; }
+        .nav-item { padding: 12px 15px; margin-bottom: 4px; cursor: pointer; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; transition: 0.2s; }
+        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
+        .nav-item.active { background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(0,0,0,0) 100%); color: var(--primary); border-left: 3px solid var(--primary); }
 
-        .btn {
-            padding: 8px 16px; border: 1px solid var(--border);
-            border-radius: 8px; background: var(--bg-card);
-            color: var(--text-main); font-size: 0.85rem;
-            cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; gap: 8px;
-            font-weight: 500;
-        }
-        .btn:hover { background: var(--bg-body); transform: translateY(-1px); }
+        /* Header */
+        header { background: var(--bg-card); height: var(--header-height); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 24px; flex-shrink: 0; z-index: 40; }
+        .header-left h1 { margin: 0; font-size: 1.25rem; font-weight: 700; }
+        .control-group { background: var(--bg-body); padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+        select { border: none; background: transparent; font-weight: 600; color: var(--text-main); cursor: pointer; }
+        
+        .btn { padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; font-weight: 500; }
+        .btn:hover { transform: translateY(-1px); }
         .btn-primary { background: var(--secondary); color: white; border: none; }
-        .btn-primary:hover { background: var(--text-muted); }
-        .btn-accent { background: var(--primary); color: white; border: none; }
-        .btn-accent:hover { background: var(--primary-dark); }
-        
-        .theme-toggle {
-            width: 40px; height: 40px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            background: var(--bg-body); border: 1px solid var(--border);
-            cursor: pointer; color: var(--text-muted);
-            transition: 0.3s;
-        }
-        .theme-toggle:hover { color: var(--primary); }
+        .theme-toggle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--bg-body); border: 1px solid var(--border); cursor: pointer; }
 
-        /* --- Tabs --- */
-        .tabs {
-            background: var(--bg-card);
-            padding: 0 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex; gap: 30px; flex-shrink: 0;
-        }
-        .tab-btn {
-            padding: 16px 0; background: none; border: none;
-            cursor: pointer; font-weight: 600;
-            color: var(--text-muted); position: relative; font-size: 0.9rem;
-            transition: 0.2s;
-        }
+        /* Tabs */
+        .tabs { background: var(--bg-card); padding: 0 24px; border-bottom: 1px solid var(--border); display: flex; gap: 30px; flex-shrink: 0; }
+        .tab-btn { padding: 16px 0; background: none; border: none; cursor: pointer; font-weight: 600; color: var(--text-muted); position: relative; font-size: 0.9rem; }
         .tab-btn.active { color: var(--secondary); }
         body.dark-mode .tab-btn.active { color: var(--primary); }
-        .tab-btn.active::after {
-            content: ''; position: absolute; bottom: -1px; left: 0;
-            width: 100%; height: 3px; background: var(--primary);
-            border-radius: 3px 3px 0 0;
-        }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--primary); border-radius: 3px 3px 0 0; }
 
-        /* --- Content Area --- */
+        /* Views */
         .view-container { flex: 1; overflow: hidden; position: relative; background: var(--bg-body); }
-        .view {
-            display: none; height: 100%; overflow-y: auto;
-            padding: 24px; animation: fadeIn 0.4s ease;
-        }
+        .view { display: none; height: 100%; overflow-y: auto; padding: 24px; animation: fadeIn 0.4s ease; }
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- KPI Cards --- */
-        .kpi-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px; margin-bottom: 30px;
-        }
-        .kpi-card {
-            background: var(--bg-card); padding: 24px;
-            border-radius: var(--radius); box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            position: relative; overflow: hidden;
-            transition: transform 0.3s;
-        }
-        .kpi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
-        
-        .kpi-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-        .kpi-icon { 
-            width: 40px; height: 40px; border-radius: 10px; 
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem;
-        }
-        .icon-blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-        .icon-orange { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
-        .icon-green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
-        .icon-purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+        /* KPI Grid */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 30px; }
+        .kpi-card { background: var(--bg-card); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); position: relative; overflow: hidden; transition: transform 0.3s; }
+        .kpi-card:hover { transform: translateY(-4px); border-color: var(--primary-light); }
+        .kpi-value { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
+        .kpi-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
 
-        .kpi-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-bottom: 5px; }
-        .kpi-value { font-size: 2rem; font-weight: 700; color: var(--text-main); line-height: 1.2; margin-bottom: 5px; }
-        .kpi-sub { font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
-        .trend-up { color: var(--success); font-size: 0.8rem; }
-        .trend-down { color: var(--danger); font-size: 0.8rem; }
-
-        /* Sparkline SVG */
-        .sparkline-svg {
-            width: 100%; height: 40px; overflow: visible; margin-top: 10px;
-            opacity: 0.6;
-        }
-        .sparkline-path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-        /* --- Charts --- */
+        /* Charts */
         .chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 30px; }
-        .chart-card { 
-            background: var(--bg-card); padding: 20px; 
-            border-radius: var(--radius); box-shadow: var(--shadow); 
-            border: 1px solid var(--border); display: flex; flex-direction: column;
-        }
+        .chart-card { background: var(--bg-card); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; }
         .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .chart-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 0; }
+        .chart-title { font-size: 1.1rem; font-weight: 700; margin: 0; }
         
-        /* Table Styling */
-        .table-container {
-            background: var(--bg-card); border-radius: var(--radius);
-            box-shadow: var(--shadow); border: 1px solid var(--border);
-            overflow: hidden; display: flex; flex-direction: column;
-        }
-        .table-toolbar {
-            padding: 15px 20px; border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center; background: var(--bg-body);
-        }
-        .data-table-wrapper { overflow-x: auto; flex: 1; }
+        /* Tables */
+        .table-container { background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; }
+        .table-toolbar { padding: 15px 20px; border-bottom: 1px solid var(--border); background: var(--bg-body); display: flex; justify-content: space-between; }
+        .data-table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th {
-            background: var(--bg-body); color: var(--text-muted); font-weight: 600;
-            text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;
-            padding: 15px; text-align: left; border-bottom: 2px solid var(--border);
-            white-space: nowrap;
-        }
-        td { padding: 15px; border-bottom: 1px solid var(--border); color: var(--text-main); vertical-align: middle; }
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background-color: rgba(0,0,0,0.02); }
-        .num { font-family: 'Courier New', monospace; text-align: right; letter-spacing: -0.5px; }
+        th { background: var(--bg-body); color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; padding: 15px; text-align: left; border-bottom: 2px solid var(--border); }
+        td { padding: 15px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        .num { font-family: 'Courier New', monospace; text-align: right; }
 
-        /* --- Input Table --- */
+        /* Input Grid (Dual Inputs) */
         .input-table-wrapper { border-radius: var(--radius); border: 1px solid var(--border); overflow: auto; background: var(--bg-card); }
         .entry-table { min-width: 1000px; }
         .entry-table th { background: var(--secondary); color: white; border-color: rgba(255,255,255,0.1); }
-        .day-cell {
-            background: var(--bg-body); color: var(--text-main); font-weight: bold;
-            text-align: center; width: 60px; position: sticky; left: 0; z-index: 10;
-            border-right: 2px solid var(--primary);
-        }
-        .form-input {
-            width: 100%; padding: 8px; border: 1px solid var(--border);
-            border-radius: 6px; background: var(--bg-body); color: var(--text-main);
-            font-size: 0.9rem; text-align: right; transition: 0.2s;
-        }
-        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); }
+        .day-cell { background: var(--bg-body); font-weight: bold; text-align: center; width: 60px; position: sticky; left: 0; z-index: 10; border-right: 2px solid var(--primary); }
+        
+        /* Dual Input Styling */
+        .input-group { display: flex; flex-direction: column; gap: 4px; }
+        .form-input { width: 100%; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-body); color: var(--text-main); font-size: 0.8rem; text-align: right; transition: 0.2s; }
+        .form-input:focus { border-color: var(--primary); background: #fffbeb; }
+        .form-input.sales-input { border-bottom: 1px solid #ddd; }
+        .form-input.trn-input { color: var(--text-muted); font-size: 0.75rem; }
 
-        /* --- Toast --- */
-        .toast {
-            position: fixed; bottom: 30px; right: 30px;
-            background: var(--secondary); color: white;
-            padding: 12px 24px; border-radius: 50px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            opacity: 0; transform: translateY(20px); transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 1000; font-weight: 600; font-size: 0.9rem;
-            display: flex; align-items: center; gap: 10px;
-        }
+        /* Utilities */
+        .toast { position: fixed; bottom: 30px; right: 30px; background: var(--secondary); color: white; padding: 12px 24px; border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); opacity: 0; transform: translateY(20px); transition: 0.3s; z-index: 1000; display: flex; align-items: center; gap: 10px; }
         .toast.show { opacity: 1; transform: translateY(0); }
-        .toast.success { border-left: 4px solid var(--success); }
-        .toast.error { border-left: 4px solid var(--danger); }
+        
+        /* SVG */
+        svg { width: 100%; height: 100%; overflow: visible; }
+        .chart-tooltip { position: absolute; background: var(--secondary); color: white; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; pointer-events: none; opacity: 0; transition: 0.2s; z-index: 10; white-space: nowrap; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
 
-        /* --- Quick Action FAB --- */
-        .fab {
-            position: fixed; bottom: 30px; right: 30px;
-            width: 60px; height: 60px;
-            background: var(--primary); color: white;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-            cursor: pointer; transition: 0.3s; z-index: 90;
-            font-size: 1.5rem;
-        }
-        .fab:hover { transform: scale(1.1) rotate(90deg); background: var(--primary-dark); }
-        .fab-tooltip {
-            position: absolute; right: 70px; background: var(--text-main); color: var(--bg-card);
-            padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; opacity: 0;
-            pointer-events: none; transition: 0.2s; white-space: nowrap;
-        }
-        .fab:hover + .fab-tooltip { opacity: 1; }
-
-        /* --- Modal --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-            z-index: 100; display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: 0.3s;
-        }
-        .modal-overlay.open { opacity: 1; pointer-events: all; }
-        .modal {
-            background: var(--bg-card); width: 90%; max-width: 500px;
-            border-radius: var(--radius); padding: 24px;
-            box-shadow: var(--shadow-lg); transform: scale(0.9); transition: 0.3s;
-            border: 1px solid var(--border);
-        }
-        .modal-overlay.open .modal { transform: scale(1); }
-        .modal h2 { margin-top: 0; color: var(--text-main); }
-        .form-grid { display: grid; gap: 15px; margin-top: 20px; }
-        .form-group label { display: block; margin-bottom: 5px; font-size: 0.85rem; color: var(--text-muted); }
-        .form-control { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-body); color: var(--text-main); }
-
-        /* --- SVG Chart Utils --- */
-        .chart-bar { transition: height 0.6s ease-out, fill 0.2s; cursor: pointer; }
-        .chart-bar:hover { fill: var(--primary-light) !important; filter: drop-shadow(0 0 4px rgba(245,158,11,0.5)); }
-        .chart-tooltip {
-            position: absolute; background: var(--secondary); color: white;
-            padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; pointer-events: none;
-            opacity: 0; transition: 0.2s; z-index: 10; white-space: nowrap;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        /* --- Responsive & Print --- */
+        /* Responsive */
         @media (max-width: 768px) {
             aside { position: fixed; bottom: 0; width: 100%; height: 60px; flex-direction: row; border-top: 1px solid var(--border); }
             .brand, .nav-item span { display: none; }
-            .nav-menu { display: flex; overflow-x: auto; padding: 0; justify-content: space-around; width: 100%; }
-            .nav-item { flex-direction: column; justify-content: center; gap: 4px; margin: 0; font-size: 0.7rem; }
-            .nav-item i { font-size: 1.2rem; }
+            .nav-menu { display: flex; justify-content: space-around; width: 100%; }
+            .nav-item { flex-direction: column; gap: 4px; font-size: 0.7rem; }
             main { margin-bottom: 60px; }
             .chart-row { grid-template-columns: 1fr; }
-            .header-left h1 { font-size: 1rem; }
-            .control-group span { display: none; }
-            .tabs { overflow-x: auto; padding: 0 15px; }
-        }
-
-        @media print {
-            aside, header, .tabs, .fab, .toast, .no-print { display: none !important; }
-            body { height: auto; background: white; color: black; overflow: visible; }
-            .view { display: block !important; padding: 0; overflow: visible; }
-            .kpi-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; border-bottom: 1px solid #ccc; padding-bottom: 20px; margin-bottom: 20px; }
-            .chart-row { display: block; }
-            .chart-card { border: 1px solid #ddd; box-shadow: none; margin-bottom: 20px; page-break-inside: avoid; }
-            .sparkline-svg { display: none; }
-            @page { size: landscape; margin: 1cm; }
         }
     </style>
 </head>
@@ -377,23 +142,13 @@
             <div class="header-left">
                 <h1>Executive <span>Dashboard</span></h1>
             </div>
-            <div class="header-controls no-print">
+            <div class="header-controls">
                 <div class="control-group">
-                    <span style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">BRANCH</span>
                     <select id="branchSelector" onchange="app.filterBranch(this.value)">
                         <option value="all">All Branches</option>
                     </select>
                 </div>
                 <div class="control-group">
-                    <span style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">PERIOD</span>
-                    <select id="scopeSelector" onchange="app.updatePeriod()">
-                        <option value="month">This Month</option>
-                        <option value="q1">Q1</option>
-                        <option value="q2">Q2</option>
-                        <option value="q3">Q3</option>
-                        <option value="q4">Q4</option>
-                        <option value="year">Full Year</option>
-                    </select>
                     <select id="monthSelector" onchange="app.updatePeriod()">
                         <option value="2024-01">Jan</option>
                         <option value="2024-02">Feb</option>
@@ -409,188 +164,131 @@
                         <option value="2024-12">Dec</option>
                     </select>
                 </div>
-                <button class="btn btn-accent" onclick="app.printReport()"><i class="fas fa-print"></i> <span class="desktop-only">Print</span></button>
                 <div class="theme-toggle" onclick="app.toggleTheme()"><i class="fas fa-moon"></i></div>
             </div>
         </header>
 
-        <div class="tabs no-print">
+        <div class="tabs">
             <button class="tab-btn active" onclick="app.switchTab('dashboard')">Overview</button>
             <button class="tab-btn" onclick="app.switchTab('entry')">Data Entry</button>
             <button class="tab-btn" onclick="app.switchTab('branches')">Branch Analysis</button>
-            <button class="tab-btn" onclick="app.switchTab('insights')">AI Insights</button>
         </div>
 
         <div class="view-container">
             
             <!-- VIEW 1: Executive Overview -->
             <div id="view-dashboard" class="view active">
-                <!-- KPI Cards with Sparklines -->
+                <!-- KPIs -->
                 <div class="kpi-grid">
                     <div class="kpi-card">
-                        <div class="kpi-top">
-                            <div>
-                                <div class="kpi-label">Total Revenue</div>
-                                <div class="kpi-value" id="kpiSales">$0</div>
-                                <div class="kpi-sub"><span class="trend-up"><i class="fas fa-arrow-up"></i> 12%</span> vs last period</div>
-                            </div>
-                            <div class="kpi-icon icon-blue"><i class="fas fa-dollar-sign"></i></div>
-                        </div>
-                        <!-- Sparkline SVG -->
-                        <svg class="sparkline-svg" viewBox="0 0 100 20" id="sparkSales"></svg>
+                        <div class="kpi-label">Total Revenue</div>
+                        <div class="kpi-value" id="kpiSales">$0</div>
+                        <div style="font-size:0.8rem; color:var(--success);">All Channels</div>
                     </div>
-                    
                     <div class="kpi-card">
-                        <div class="kpi-top">
-                            <div>
-                                <div class="kpi-label">Avg Check</div>
-                                <div class="kpi-value" id="kpiAvg">$0</div>
-                                <div class="kpi-sub">Global Average</div>
-                            </div>
-                            <div class="kpi-icon icon-orange"><i class="fas fa-receipt"></i></div>
-                        </div>
-                        <svg class="sparkline-svg" viewBox="0 0 100 20" id="sparkAvg"></svg>
+                        <div class="kpi-label">Total Orders</div>
+                        <div class="kpi-value" id="kpiTrn">0</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted);">Transactions</div>
                     </div>
-
                     <div class="kpi-card">
-                        <div class="kpi-top">
-                            <div>
-                                <div class="kpi-label">Transactions</div>
-                                <div class="kpi-value" id="kpiTrn">0</div>
-                                <div class="kpi-sub"><span class="trend-down"><i class="fas fa-arrow-down"></i> 3%</span> traffic</div>
-                            </div>
-                            <div class="kpi-icon icon-green"><i class="fas fa-shopping-bag"></i></div>
-                        </div>
-                        <svg class="sparkline-svg" viewBox="0 0 100 20" id="sparkTrn"></svg>
+                        <div class="kpi-label">Avg Check</div>
+                        <div class="kpi-value" id="kpiAvg">$0</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted);">Per Order</div>
                     </div>
-
                     <div class="kpi-card">
-                        <div class="kpi-top">
-                            <div>
-                                <div class="kpi-label">Top Performer</div>
-                                <div class="kpi-value" id="kpiTop" style="font-size:1.4rem; line-height:1.4;">-</div>
-                                <div class="kpi-sub">Best Branch</div>
-                            </div>
-                            <div class="kpi-icon icon-purple"><i class="fas fa-trophy"></i></div>
-                        </div>
+                        <div class="kpi-label">Delivery Rev</div>
+                        <div class="kpi-value" id="kpiDel">$0</div>
+                        <div style="font-size:0.8rem; color:var(--primary);">3rd Party + Own</div>
                     </div>
                 </div>
 
-                <!-- Charts -->
+                <!-- Charts Row 1 -->
                 <div class="chart-row">
                     <div class="chart-card">
                         <div class="chart-header">
                             <h3 class="chart-title">Revenue by Branch</h3>
-                            <div style="font-size:0.8rem; color:var(--text-muted);">Click bar to filter table</div>
                         </div>
-                        <div style="position: relative; height: 300px;">
-                            <svg id="branchChart" style="width:100%; height:100%;"></svg>
-                            <div id="chartTooltip" class="chart-tooltip"></div>
+                        <div style="position: relative; height: 250px;">
+                            <svg id="branchChart"></svg>
+                            <div id="barTooltip" class="chart-tooltip"></div>
                         </div>
                     </div>
                     <div class="chart-card">
                         <div class="chart-header"><h3 class="chart-title">Sales Channel Mix</h3></div>
-                        <div style="position: relative; height: 300px;">
-                            <svg id="channelChart" viewBox="0 0 300 300" style="width:100%; height:100%;"></svg>
+                        <div style="position: relative; height: 250px;">
+                            <svg id="channelChart" viewBox="0 0 300 300"></svg>
                         </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Delivery Trend Line Chart -->
+                <div class="chart-card" style="margin-bottom: 30px; border-left: 4px solid var(--primary);">
+                    <div class="chart-header">
+                        <div>
+                            <h3 class="chart-title" style="margin:0;">Daily Delivery Trend (All Branches)</h3>
+                            <p style="margin:5px 0 0; font-size:0.8rem; color:var(--text-muted);">Aggregation: Delivery, Keeta, Careem, Noon, Deliveroo, Smiles</p>
+                        </div>
+                    </div>
+                    <div style="position: relative; height: 200px;">
+                        <svg id="trendChart"></svg>
+                        <div id="trendTooltip" class="chart-tooltip"></div>
                     </div>
                 </div>
 
                 <!-- Detailed Table -->
                 <div class="table-container">
                     <div class="table-toolbar">
-                        <strong>Performance Breakdown</strong>
+                        <strong>Branch Performance Summary</strong>
                         <button class="btn btn-primary" onclick="app.exportCSV()">Export CSV</button>
                     </div>
                     <div class="data-table-wrapper">
                         <table id="branchTable">
-                            <thead><tr><th>Branch</th><th>Sales</th><th>TRN</th><th>Avg</th><th>Trend</th></tr></thead>
+                            <thead><tr><th>Branch</th><th>Sales</th><th>TRN</th><th>Avg Check</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW 2: Data Entry -->
+            <!-- VIEW 2: Data Entry (Dual Input) -->
             <div id="view-entry" class="view">
                 <div class="control-group" style="margin-bottom: 20px; background: var(--bg-card); padding: 15px;">
                     <strong>Editing:</strong>
                     <select id="entryBranchSelect" onchange="app.changeEntryBranch(this.value)"></select>
                     <span style="color:var(--text-muted); margin: 0 10px;">|</span>
                     <span id="entryMonthLabel" style="color:var(--text-muted);"></span>
+                    <span style="margin-left:auto; font-size:0.8rem; color:var(--text-muted);">
+                        <i class="fas fa-info-circle"></i> Enter Sales (Top) and Count (Bottom)
+                    </span>
                 </div>
 
                 <div class="input-table-wrapper">
                     <table class="entry-table" id="entryTable">
-                        <!-- JS Generated -->
+                        <!-- Generated by JS -->
                     </table>
                 </div>
             </div>
 
-            <!-- VIEW 3: Branch Analysis (Placeholder for structure) -->
-            <div id="view-branches" class="view">
+             <!-- VIEW 3: Branch Analysis -->
+             <div id="view-branches" class="view">
                 <div class="table-container">
                     <div class="table-toolbar"><strong>Full Branch Comparison</strong></div>
                     <div class="data-table-wrapper">
                         <table id="fullBranchTable">
-                            <thead><tr><th>Branch</th><th>Rev</th><th>Trn</th><th>Avg</th><th>Best Channel</th><th>Weak Channel</th></tr></thead>
+                            <thead><tr><th>Branch</th><th>Rev</th><th>Trn</th><th>Avg</th><th>Best Channel</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW 4: AI Insights -->
-            <div id="view-insights" class="view">
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
-                    <div class="kpi-icon icon-purple" style="width:50px; height:50px; font-size:1.5rem;"><i class="fas fa-robot"></i></div>
-                    <div>
-                        <h2 style="margin:0;">Auto Insights Engine</h2>
-                        <p style="margin:0; color:var(--text-muted);">AI-driven analysis based on current dataset</p>
-                    </div>
-                </div>
-                <div id="insightsList"></div>
-            </div>
-
         </div>
     </main>
-
-    <!-- Quick Action FAB -->
-    <div class="fab" onclick="app.openQuickEntry()"><i class="fas fa-plus"></i></div>
-    <div class="fab-tooltip">Quick Entry</div>
-
-    <!-- Quick Entry Modal -->
-    <div class="modal-overlay" id="quickEntryModal">
-        <div class="modal">
-            <h2>Quick Entry <button onclick="app.closeQuickEntry()" style="float:none; background:none; border:none; color:var(--text-muted); cursor:pointer; float:right;"><i class="fas fa-times"></i></button></h2>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Branch</label>
-                    <select class="form-control" id="modalBranch"></select>
-                </div>
-                <div class="form-group">
-                    <label>Channel</label>
-                    <select class="form-control" id="modalChannel"></select>
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                    <div class="form-group">
-                        <label>Sales ($)</label>
-                        <input type="number" class="form-control" id="modalSales" placeholder="0.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Transactions (#)</label>
-                        <input type="number" class="form-control" id="modalTrn" placeholder="0">
-                    </div>
-                </div>
-                <button class="btn btn-accent" style="width:100%; justify-content:center;" onclick="app.submitQuickEntry()">Save Entry</button>
-            </div>
-        </div>
-    </div>
 
     <div id="toast" class="toast"><i class="fas fa-check-circle"></i> Data Saved</div>
 
     <script>
-        // --- Config & State ---
+        // --- Config ---
         const CONFIG = {
             branches: ["Hamdan St", "Khaldia", "Shabiya 11", "Muroor", "Al Electra", "Al Barsha", "Al Satwa", "Al Rigga", "Al Majaz"],
             channels: [
@@ -602,65 +300,358 @@
                 { id: 'careem', label: 'Careem' },
                 { id: 'smiles', label: 'SMILES' },
                 { id: 'delivero', label: 'Deliveroo' }
-            ]
+            ],
+            // Channels to aggregate for the trend report
+            deliveryChannels: ['delivery', 'keeta', 'noon', 'careem', 'smiles', 'delivero']
         };
 
         let state = {
             db: {},
-            currentMonth: new Date().toISOString().slice(0, 7), // Current Month YYYY-MM
+            currentMonth: new Date().toISOString().slice(0, 7),
             activeBranchIdx: 0,
-            activeFilter: 'all',
-            chartFilter: null // Filter from clicking chart
+            activeFilter: 'all'
         };
 
         // --- Core Logic ---
         const app = {
             init: () => {
-                // Set default month selector
                 document.getElementById('monthSelector').value = state.currentMonth;
-                
                 app.loadData();
                 app.renderNav();
                 app.populateSelects();
-                app.applyTheme();
-                
-                // Set today for quick entry
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById('modalBranch').innerHTML = CONFIG.branches.map(b => `<option value="${b}">${b}</option>`).join('');
-                document.getElementById('modalChannel').innerHTML = CONFIG.channels.map(c => `<option value="${c.id}">${c.label}</option>`).join('');
-                
                 app.updatePeriod();
             },
 
             loadData: () => {
                 const saved = localStorage.getItem('crispy_db_v2');
                 if(saved) state.db = JSON.parse(saved);
-                else {
-                    // Seed empty data
-                    CONFIG.branches.forEach(b => state.db[b] = {});
-                }
+                else CONFIG.branches.forEach(b => state.db[b] = {});
             },
 
             saveData: () => {
                 localStorage.setItem('crispy_db_v2', JSON.stringify(state.db));
-                app.showToast('success', 'Data Updated Successfully');
+                const t = document.getElementById('toast');
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 2000);
                 app.updatePeriod();
             },
 
-            // --- Theme System ---
-            toggleTheme: () => {
-                document.body.classList.toggle('dark-mode');
-                const isDark = document.body.classList.contains('dark-mode');
-                localStorage.setItem('crispy_theme', isDark ? 'dark' : 'light');
-                app.renderCharts(app.lastData); // Redraw charts for color update
+            // --- Entry Table (FIX: Dual Input) ---
+            renderEntryTable: () => {
+                const table = document.getElementById('entryTable');
+                const [y, m] = state.currentMonth.split('-').map(Number);
+                const days = new Date(y, m, 0).getDate();
+                const bName = CONFIG.branches[state.activeBranchIdx];
+                
+                let html = `<thead><tr><th class="day-cell">Day</th>`;
+                CONFIG.channels.forEach(c => html += `<th>${c.label}</th>`);
+                html += `</tr></thead><tbody>`;
+
+                for(let d=1; d<=days; d++) {
+                    const iso = `${state.currentMonth}-${String(d).padStart(2,'0')}`;
+                    html += `<tr><td class="day-cell">${d}</td>`;
+                    
+                    CONFIG.channels.forEach(c => {
+                        // Retrieve existing values
+                        const dayData = state.db[bName][iso] ? state.db[bName][iso][c.id] : null;
+                        const sales = dayData ? (dayData.sales || '') : '';
+                        const trn = dayData ? (dayData.trn || '') : '';
+
+                        html += `
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-input sales-input" placeholder="$" value="${sales}" 
+                                    oninput="app.handleInput('${iso}', '${c.id}', 'sales', this.value)">
+                                    <input type="number" class="form-input trn-input" placeholder="#" value="${trn}" 
+                                    oninput="app.handleInput('${iso}', '${c.id}', 'trn', this.value)">
+                                </div>
+                            </td>`;
+                    });
+                    html += `</tr>`;
+                }
+                table.innerHTML = html;
             },
 
-            applyTheme: () => {
-                const theme = localStorage.getItem('crispy_theme');
-                if(theme === 'dark') document.body.classList.add('dark-mode');
+            // Handle Input (Sales OR Trn)
+            handleInput: (iso, chId, key, val) => {
+                const bName = CONFIG.branches[state.activeBranchIdx];
+                if(!state.db[bName][iso]) state.db[bName][iso] = {};
+                if(!state.db[bName][iso][chId]) state.db[bName][iso][chId] = {};
+                
+                // Save specific key
+                state.db[bName][iso][chId][key] = key === 'sales' ? parseFloat(val) || 0 : parseInt(val) || 0;
+                
+                // Auto-calc logic could go here if needed, but manual is preferred for accuracy
+                
+                // Debounce save
+                if(window.saveTimeout) clearTimeout(window.saveTimeout);
+                window.saveTimeout = setTimeout(() => app.saveData(), 1000);
             },
 
-            // --- Navigation & Sync ---
+            // --- Data Processing ---
+            processData: () => {
+                const [y, m] = state.currentMonth.split('-').map(Number);
+                const days = new Date(y, m, 0).getDate();
+
+                let total = { sales:0, trn:0, deliverySales:0 };
+                let branches = [];
+
+                CONFIG.branches.forEach(b => {
+                    let row = { name: b, sales:0, trn:0, deliverySales:0, channels: {} };
+                    CONFIG.channels.forEach(c => row.channels[c.id] = 0);
+
+                    for(let d=1; d<=days; d++) {
+                        const iso = `${state.currentMonth}-${String(d).padStart(2,'0')}`;
+                        const dayData = state.db[b][iso] || {};
+                        
+                        Object.keys(dayData).forEach(ch => {
+                            const s = parseFloat(dayData[ch].sales) || 0;
+                            const t = parseInt(dayData[ch].trn) || 0;
+                            
+                            row.sales += s; row.trn += t;
+                            if(row.channels[ch] !== undefined) row.channels[ch] += s;
+                            
+                            // Check if delivery channel
+                            if(CONFIG.deliveryChannels.includes(ch)) {
+                                row.deliverySales += s;
+                            }
+                        });
+                    }
+                    row.avg = row.trn > 0 ? row.sales / row.trn : 0;
+                    
+                    branches.push(row);
+                    total.sales += row.sales;
+                    total.trn += row.trn;
+                    total.deliverySales += row.deliverySales;
+                });
+
+                return { branches, total };
+            },
+
+            // Calculate Daily Trend for Delivery
+            getDeliveryTrend: () => {
+                const [y, m] = state.currentMonth.split('-').map(Number);
+                const days = new Date(y, m, 0).getDate();
+                const trendData = [];
+
+                for(let d=1; d<=days; d++) {
+                    const iso = `${state.currentMonth}-${String(d).padStart(2,'0')}`;
+                    let dayTotal = 0;
+                    
+                    // Sum all delivery channels for this day across ALL branches
+                    CONFIG.branches.forEach(b => {
+                        const branchDay = state.db[b][iso] || {};
+                        Object.keys(branchDay).forEach(ch => {
+                            if(CONFIG.deliveryChannels.includes(ch)) {
+                                dayTotal += parseFloat(branchDay[ch].sales) || 0;
+                            }
+                        });
+                    });
+                    trendData.push({ day: d, value: dayTotal });
+                }
+                return trendData;
+            },
+
+            // --- Rendering ---
+            updatePeriod: () => {
+                state.currentMonth = document.getElementById('monthSelector').value;
+                const monthName = new Date(state.currentMonth + '-01').toLocaleString('default', { month: 'long', year: 'numeric' });
+                document.getElementById('entryMonthLabel').textContent = monthName;
+
+                const data = app.processData();
+                
+                // KPIs
+                const cur = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits:0 }).format(n);
+                document.getElementById('kpiSales').textContent = cur(data.total.sales);
+                document.getElementById('kpiTrn').textContent = data.total.trn.toLocaleString();
+                document.getElementById('kpiAvg').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.total.trn > 0 ? data.total.sales/data.total.trn : 0);
+                document.getElementById('kpiDel').textContent = cur(data.total.deliverySales);
+
+                // Charts
+                app.renderBarChart(data.branches);
+                app.renderDonutChart(data.branches);
+                app.renderTrendChart(); // New Line Chart
+                
+                // Tables
+                app.renderTables(data.branches);
+                app.renderEntryTable(); // Refresh Entry inputs if changed
+            },
+
+            // NEW: Line Chart for Delivery Trend
+            renderTrendChart: () => {
+                const svg = document.getElementById('trendChart');
+                const tooltip = document.getElementById('trendTooltip');
+                svg.innerHTML = '';
+                
+                const data = app.getDeliveryTrend();
+                const w = svg.clientWidth || 800;
+                const h = svg.clientHeight || 200;
+                const pad = 20;
+
+                const maxVal = Math.max(...data.map(d => d.value), 100); // Minimum 100 scale
+
+                // Grid Lines
+                for(let i=0; i<=4; i++) {
+                    const y = h - pad - (i/4)*(h - pad*2);
+                    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                    line.setAttribute("x1", pad); line.setAttribute("y1", y);
+                    line.setAttribute("x2", w - pad); line.setAttribute("y2", y);
+                    line.setAttribute("stroke", "var(--border)");
+                    line.setAttribute("stroke-dasharray", "4");
+                    svg.appendChild(line);
+                }
+
+                // Path Generation
+                let points = "";
+                const stepX = (w - pad*2) / (data.length - 1);
+                
+                data.forEach((d, i) => {
+                    const x = pad + i * stepX;
+                    const y = h - pad - (d.value / maxVal) * (h - pad*2);
+                    points += `${x},${y} `;
+
+                    // Dots
+                    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    circle.setAttribute("cx", x); circle.setAttribute("cy", y);
+                    circle.setAttribute("r", 4); circle.setAttribute("fill", "var(--primary)");
+                    circle.setAttribute("class", "trend-point");
+                    circle.style.cursor = "pointer";
+
+                    // Interactivity
+                    circle.onmouseover = (e) => {
+                        tooltip.style.opacity = 1;
+                        tooltip.style.left = (e.pageX + 10) + 'px';
+                        tooltip.style.top = (e.pageY - 30) + 'px';
+                        tooltip.innerHTML = `<strong>Day ${d.day}</strong><br>Sales: $${d.value.toFixed(2)}`;
+                        circle.setAttribute("r", 7);
+                    };
+                    circle.onmouseout = () => {
+                        tooltip.style.opacity = 0;
+                        circle.setAttribute("r", 4);
+                    };
+
+                    svg.appendChild(circle);
+                });
+
+                // Draw Line
+                const polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+                polyline.setAttribute("points", points);
+                polyline.setAttribute("fill", "none");
+                polyline.setAttribute("stroke", "var(--primary)");
+                polyline.setAttribute("stroke-width", "3");
+                polyline.setAttribute("stroke-linejoin", "round");
+                svg.insertBefore(polyline, svg.firstChild);
+            },
+
+            renderBarChart: (data) => {
+                const svg = document.getElementById('branchChart');
+                const tooltip = document.getElementById('barTooltip');
+                svg.innerHTML = '';
+                
+                const w = svg.clientWidth || 600;
+                const h = svg.clientHeight || 250;
+                const pad = 30;
+                const max = Math.max(...data.map(d => d.sales)) || 1;
+                const barW = ((w - pad*2) / data.length) - 10;
+
+                data.forEach((b, i) => {
+                    const hBar = (b.sales / max) * (h - pad*2);
+                    const x = pad + i * ((w - pad*2) / data.length);
+                    const y = h - pad - hBar;
+                    
+                    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    rect.setAttribute("x", x); rect.setAttribute("y", y);
+                    rect.setAttribute("width", barW); rect.setAttribute("height", hBar);
+                    rect.setAttribute("fill", "var(--primary)"); rect.setAttribute("rx", 4);
+                    rect.style.cursor = "pointer";
+
+                    rect.onmousemove = (e) => {
+                        tooltip.style.opacity = 1;
+                        tooltip.style.left = (e.pageX + 10) + 'px';
+                        tooltip.style.top = (e.pageY - 20) + 'px';
+                        tooltip.innerHTML = `<strong>${b.name}</strong><br>$${b.sales.toFixed(0)}`;
+                    };
+                    rect.onmouseout = () => tooltip.style.opacity = 0;
+
+                    svg.appendChild(rect);
+                });
+            },
+
+            renderDonutChart: (data) => {
+                const svg = document.getElementById('channelChart');
+                svg.innerHTML = '';
+                
+                let totals = {};
+                CONFIG.channels.forEach(c => totals[c.id] = 0);
+                data.forEach(b => { Object.keys(b.channels).forEach(k => totals[k] += b.channels[k]); });
+                
+                const total = Object.values(totals).reduce((a,b)=>a+b, 0) || 1;
+                let start = 0;
+                const cx = 150, cy = 150, r = 100;
+                const colors = ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ef4444', '#6366f1', '#ec4899', '#14b8a6'];
+
+                CONFIG.channels.forEach((c, i) => {
+                    const val = totals[c.id];
+                    if(val <= 0) return;
+                    const slice = (val/total) * Math.PI * 2;
+                    const end = start + slice;
+                    
+                    const x1 = cx + r * Math.cos(start);
+                    const y1 = cy + r * Math.sin(start);
+                    const x2 = cx + r * Math.cos(end);
+                    const y2 = cy + r * Math.sin(end);
+                    
+                    const large = slice > Math.PI ? 1 : 0;
+                    const pathData = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`;
+                    
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("d", pathData); path.setAttribute("fill", colors[i]);
+                    path.setAttribute("stroke", "var(--bg-card)");
+                    svg.appendChild(path);
+                    start = end;
+                });
+                // Hole
+                const hole = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                hole.setAttribute("cx", cx); hole.setAttribute("cy", cy); hole.setAttribute("r", 60); hole.setAttribute("fill", "var(--bg-card)");
+                svg.appendChild(hole);
+            },
+
+            renderTables: (branches) => {
+                const tb = document.querySelector('#branchTable tbody');
+                const tbFull = document.querySelector('#fullBranchTable tbody');
+                const cur = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
+
+                const html = branches.map(b => `
+                    <tr>
+                        <td style="font-weight:600;">${b.name}</td>
+                        <td class="num">${cur(b.sales)}</td>
+                        <td class="num">${b.trn}</td>
+                        <td class="num">${cur(b.avg)}</td>
+                    </tr>
+                `).join('');
+                
+                if(tb) tb.innerHTML = html;
+                if(tbFull) tbFull.innerHTML = html;
+            },
+
+            populateSelects: () => {
+                const fill = (id) => {
+                    const sel = document.getElementById(id);
+                    if(!sel) return;
+                    sel.innerHTML = '<option value="all">All Branches</option>';
+                    CONFIG.branches.forEach(b => sel.innerHTML += `<option value="${b}">${b}</option>`);
+                };
+                fill('branchSelector');
+                fill('entryBranchSelect');
+            },
+
+            filterBranch: (val) => {
+                state.activeFilter = val;
+                state.activeBranchIdx = val === 'all' ? 0 : CONFIG.branches.indexOf(val);
+                app.renderNav();
+                app.updatePeriod();
+            },
+
             renderNav: () => {
                 const list = document.getElementById('navList');
                 list.innerHTML = '';
@@ -678,411 +669,22 @@
                     list.appendChild(el);
                 });
             },
-
-            populateSelects: () => {
-                const populate = (id) => {
-                    const sel = document.getElementById(id);
-                    if(!sel) return;
-                    sel.innerHTML = '<option value="all">All Branches</option>';
-                    CONFIG.branches.forEach(b => sel.innerHTML += `<option value="${b}">${b}</option>`);
-                };
-                populate('branchSelector');
-                populate('entryBranchSelect');
-            },
-
-            switchTab: (tabId) => {
-                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-                document.getElementById(`view-${tabId}`).classList.add('active');
-                
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                event.target.closest('.tab-btn').classList.add('active');
-            },
-
-            filterBranch: (val) => {
-                state.activeFilter = val;
-                state.activeBranchIdx = val === 'all' ? 0 : CONFIG.branches.indexOf(val);
-                app.renderNav();
-                state.chartFilter = null; // Reset chart drill-down
-                app.updatePeriod();
-            },
-
-            // --- Data Processing ---
-            processData: () => {
-                const start = new Date(state.currentMonth + '-01');
-                const end = new Date(state.currentMonth + '-01'); // Simple monthly logic for now
-                
-                // Get days in month
-                const daysInMonth = new Date(end.getFullYear(), end.getMonth() + 1, 0).getDate();
-                end.setDate(daysInMonth);
-
-                let total = { sales:0, trn:0, history: [] }; // history for sparkline
-                let branches = [];
-
-                CONFIG.branches.forEach(b => {
-                    let row = { name: b, sales:0, trn:0, channels: {} };
-                    
-                    // Init channels
-                    CONFIG.channels.forEach(c => row.channels[c.id] = 0);
-
-                    // Loop days
-                    for(let d=1; d<=daysInMonth; d++) {
-                        const iso = `${state.currentMonth}-${String(d).padStart(2,'0')}`;
-                        const dayData = state.db[b][iso] || {};
-                        
-                        let daySales = 0;
-                        Object.keys(dayData).forEach(ch => {
-                            const val = dayData[ch];
-                            const s = parseFloat(val.sales) || 0;
-                            const t = parseFloat(val.trn) || 0;
-                            row.sales += s; row.trn += t;
-                            if(row.channels[ch] !== undefined) row.channels[ch] += s;
-                            daySales += s;
-                        });
-                        
-                        // Add to history for sparklines (cumulative or daily? Let's do daily)
-                        // Only for total calculation
-                        if(b === CONFIG.branches[0]) { // Rough approximation for demo total history
-                            total.history.push(daySales);
-                        }
-                    }
-                    
-                    // Fix total history (should be sum of all branches)
-                    // Re-calculating history properly:
-                    if(total.history.length < daysInMonth) total.history = new Array(daysInMonth).fill(0);
-                    // This is a simplification. For true sparklines we'd iterate again.
-                    // Let's just use the current data for sparklines.
-                    
-                    row.avg = row.trn > 0 ? row.sales / row.trn : 0;
-                    branches.push(row);
-                    total.sales += row.sales;
-                    total.trn += row.trn;
-                });
-
-                return { branches, total };
-            },
-
-            // --- Rendering ---
-            updatePeriod: () => {
-                state.currentMonth = document.getElementById('monthSelector').value;
-                
-                // Update Labels
-                const dateObj = new Date(state.currentMonth + '-01');
-                const monthName = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
-                document.getElementById('entryMonthLabel').textContent = monthName;
-
-                const data = app.processData();
-                app.lastData = data; // Store for redraws
-
-                // Render KPIs
-                const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
-                document.getElementById('kpiSales').textContent = currency.format(data.total.sales);
-                document.getElementById('kpiTrn').textContent = data.total.trn.toLocaleString();
-                document.getElementById('kpiAvg').textContent = currency.format(data.total.trn > 0 ? data.total.sales/data.total.trn : 0);
-                
-                const top = data.branches.reduce((prev, current) => (prev.sales > current.sales) ? prev : current);
-                document.getElementById('kpiTop').textContent = top.sales > 0 ? top.name : "-";
-
-                // Render Sparklines (Generate dummy trend data based on actuals for visual)
-                app.renderSparklines();
-
-                // Render Tables & Charts
-                app.renderCharts(data);
-                app.renderTables(data.branches);
-                app.renderEntryTable();
-                app.generateInsights(data.branches);
-            },
-
-            renderSparklines: () => {
-                // Generate some "trend" data based on randomness seeded by actuals + growth
-                const createPath = (count) => {
-                    let pts = [];
-                    let val = 50;
-                    for(let i=0; i<count; i++) {
-                        val = val + (Math.random() - 0.5) * 10;
-                        val = Math.max(10, Math.min(90, val));
-                        pts.push(`${i * (100/count)},${100 - val}`);
-                    }
-                    return "M " + pts.join(" L ");
-                };
-
-                const color = getComputedStyle(document.body).getPropertyValue('--primary').trim();
-                const svg = `<path d="${createPath(20)}" class="sparkline-path" stroke="${color}" fill="none" />`;
-                
-                ['sparkSales', 'sparkAvg', 'sparkTrn'].forEach(id => {
-                    document.getElementById(id).innerHTML = svg;
-                });
-            },
-
-            renderCharts: (data) => {
-                // 1. Bar Chart (Branches)
-                const svg = document.getElementById('branchChart');
-                const tooltip = document.getElementById('chartTooltip');
-                svg.innerHTML = ''; // Clear
-
-                const w = svg.clientWidth || 600;
-                const h = svg.clientHeight || 300;
-                const pad = 40;
-                
-                const max = Math.max(...data.branches.map(d => d.sales)) || 1;
-                const barW = ((w - pad*2) / data.branches.length) - 10;
-
-                // Filter logic for drill-down
-                const displayData = state.chartFilter ? data.branches.filter(b => b.name === state.chartFilter) : data.branches;
-                
-                // If filtered, maybe just highlight? For now, let's just render all but disable others visually or filter
-                const renderList = state.chartFilter ? data.branches : data.branches; // Keep all for context or filter? Let's filter list.
-
-                data.branches.forEach((b, i) => {
-                    const hBar = (b.sales / max) * (h - pad*2);
-                    const x = pad + i * ((w - pad*2) / data.branches.length);
-                    const y = h - pad - hBar;
-                    
-                    // Color
-                    const isDimmed = state.chartFilter && b.name !== state.chartFilter;
-                    const color = isDimmed ? '#e2e8f0' : 'var(--primary)';
-                    const opacity = isDimmed ? 0.3 : 1;
-
-                    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                    rect.setAttribute("x", x);
-                    rect.setAttribute("y", y);
-                    rect.setAttribute("width", barW);
-                    rect.setAttribute("height", hBar);
-                    rect.setAttribute("fill", color);
-                    rect.setAttribute("rx", 4);
-                    rect.setAttribute("class", "chart-bar");
-                    rect.setAttribute("opacity", opacity);
-
-                    // Events
-                    rect.onmousemove = (e) => {
-                        tooltip.style.opacity = 1;
-                        tooltip.style.left = (e.pageX + 10) + 'px';
-                        tooltip.style.top = (e.pageY - 20) + 'px';
-                        tooltip.innerHTML = `<strong>${b.name}</strong><br>Sales: $${b.sales.toFixed(0)}`;
-                    };
-                    rect.onmouseout = () => tooltip.style.opacity = 0;
-                    rect.onclick = () => {
-                        state.chartFilter = state.chartFilter === b.name ? null : b.name;
-                        app.updatePeriod(); // Re-render to show table filter
-                    };
-
-                    svg.appendChild(rect);
-
-                    // Label
-                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                    text.setAttribute("x", x + barW/2);
-                    text.setAttribute("y", h - 10);
-                    text.setAttribute("text-anchor", "middle");
-                    text.setAttribute("fill", "var(--text-muted)");
-                    text.setAttribute("font-size", "10");
-                    text.textContent = b.name.split(' ')[0];
-                    svg.appendChild(text);
-                });
-
-                // 2. Donut Chart (Channels)
-                const dSvg = document.getElementById('channelChart');
-                dSvg.innerHTML = '';
-                
-                let chanTotals = {};
-                CONFIG.channels.forEach(c => chanTotals[c.id] = 0);
-                data.branches.forEach(b => {
-                    Object.keys(b.channels).forEach(k => chanTotals[k] += b.channels[k]);
-                });
-                
-                const total = Object.values(chanTotals).reduce((a,b)=>a+b, 0) || 1;
-                let start = 0;
-                const cx = 150, cy = 150, r = 100;
-                const colors = ['#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ef4444', '#6366f1', '#ec4899', '#14b8a6'];
-
-                CONFIG.channels.forEach((c, i) => {
-                    const val = chanTotals[c.id];
-                    if(val <= 0) return;
-                    const slice = (val/total) * Math.PI * 2;
-                    const end = start + slice;
-                    
-                    const x1 = cx + r * Math.cos(start);
-                    const y1 = cy + r * Math.sin(start);
-                    const x2 = cx + r * Math.cos(end);
-                    const y2 = cy + r * Math.sin(end);
-                    
-                    const large = slice > Math.PI ? 1 : 0;
-                    const pathData = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`;
-                    
-                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                    path.setAttribute("d", pathData);
-                    path.setAttribute("fill", colors[i]);
-                    path.setAttribute("stroke", "var(--bg-card)");
-                    path.setAttribute("stroke-width", "2");
-                    path.style.transition = "transform 0.2s";
-                    path.style.cursor = "pointer";
-                    
-                    path.onmouseover = () => path.style.transform = "scale(1.05)";
-                    path.onmouseout = () => path.style.transform = "scale(1)";
-                    
-                    dSvg.appendChild(path);
-                    start = end;
-                });
-                
-                // Inner hole (Donut)
-                const hole = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                hole.setAttribute("cx", cx);
-                hole.setAttribute("cy", cy);
-                hole.setAttribute("r", 60);
-                hole.setAttribute("fill", "var(--bg-card)");
-                dSvg.appendChild(hole);
-            },
-
-            renderTables: (branches) => {
-                // Filter based on chart selection
-                const list = state.chartFilter ? branches.filter(b => b.name === state.chartFilter) : branches;
-                
-                const tb = document.querySelector('#branchTable tbody');
-                const tbFull = document.querySelector('#fullBranchTable tbody');
-                const currency = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
-
-                const html = list.map(b => `
-                    <tr>
-                        <td style="font-weight:600;">${b.name}</td>
-                        <td class="num">${currency(b.sales)}</td>
-                        <td class="num">${b.trn}</td>
-                        <td class="num">${currency(b.avg)}</td>
-                        <td><span style="color:var(--success)">▲ Normal</span></td>
-                    </tr>
-                `).join('');
-                
-                tb.innerHTML = html;
-                
-                // Full Table Logic
-                const fullHtml = branches.map(b => {
-                    // Find best/worst
-                    const sortedCh = Object.entries(b.channels).sort((a,b) => b[1]-a[1]);
-                    const best = sortedCh[0][0];
-                    const worst = sortedCh[sortedCh.length-1][0];
-                    return `
-                        <tr>
-                            <td style="font-weight:600;">${b.name}</td>
-                            <td class="num">${currency(b.sales)}</td>
-                            <td class="num">${b.trn}</td>
-                            <td class="num">${currency(b.avg)}</td>
-                            <td>${CONFIG.channels.find(c=>c.id===best)?.label || '-'}</td>
-                            <td>${CONFIG.channels.find(c=>c.id===worst)?.label || '-'}</td>
-                        </tr>
-                    `;
-                }).join('');
-                if(tbFull) tbFull.innerHTML = fullHtml;
-            },
-
-            renderEntryTable: () => {
-                const table = document.getElementById('entryTable');
-                const [y, m] = state.currentMonth.split('-').map(Number);
-                const days = new Date(y, m, 0).getDate();
-                const bName = CONFIG.branches[state.activeBranchIdx];
-                
-                let html = `<thead><tr><th class="day-cell">Day</th>`;
-                CONFIG.channels.forEach(c => html += `<th>${c.label}</th>`);
-                html += `</tr></thead><tbody>`;
-
-                for(let d=1; d<=days; d++) {
-                    const iso = `${state.currentMonth}-${String(d).padStart(2,'0')}`;
-                    html += `<tr><td class="day-cell">${d}</td>`;
-                    CONFIG.channels.forEach(c => {
-                        const val = (state.db[bName][iso] && state.db[bName][iso][c.id]) ? state.db[bName][iso][c.id].sales : '';
-                        html += `
-                            <td>
-                                <input type="number" class="form-input" value="${val}" 
-                                onchange="app.handleInput('${iso}', '${c.id}', this.value)">
-                            </td>`;
-                    });
-                    html += `</tr>`;
-                }
-                table.innerHTML = html;
-            },
-
-            handleInput: (iso, chId, val) => {
-                const bName = CONFIG.branches[state.activeBranchIdx];
-                if(!state.db[bName][iso]) state.db[bName][iso] = {};
-                if(!state.db[bName][iso][chId]) state.db[bName][iso][chId] = {};
-                state.db[bName][iso][chId].sales = parseFloat(val) || 0;
-                // Assume Trn = Sales / AvgCheck (mock) or just 1 for now if empty? 
-                // Let's just save Sales for simplicity in quick view, or set TRN=1 if >0
-                state.db[bName][iso][chId].trn = val > 0 ? 1 : 0; 
-                
-                // Debounce save
-                if(window.saveTimeout) clearTimeout(window.saveTimeout);
-                window.saveTimeout = setTimeout(() => app.saveData(), 1000);
-            },
-
+            
             changeEntryBranch: (val) => {
                 state.activeBranchIdx = CONFIG.branches.indexOf(val);
                 app.renderNav();
                 app.renderEntryTable();
             },
 
-            // --- Quick Actions ---
-            openQuickEntry: () => {
-                document.getElementById('quickEntryModal').classList.add('open');
-            },
-            closeQuickEntry: () => {
-                document.getElementById('quickEntryModal').classList.remove('open');
-            },
-            submitQuickEntry: () => {
-                const b = document.getElementById('modalBranch').value;
-                const c = document.getElementById('modalChannel').value;
-                const s = parseFloat(document.getElementById('modalSales').value) || 0;
-                const t = parseFloat(document.getElementById('modalTrn').value) || 0;
-                
-                const iso = new Date().toISOString().split('T')[0]; // Today
-                
-                if(!state.db[b][iso]) state.db[b][iso] = {};
-                state.db[b][iso][c] = { sales: s, trn: t };
-                
-                app.saveData();
-                app.closeQuickEntry();
-                
-                // Reset form
-                document.getElementById('modalSales').value = '';
-                document.getElementById('modalTrn').value = '';
+            switchTab: (id) => {
+                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                document.getElementById('view-'+id).classList.add('active');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                event.target.closest('.tab-btn').classList.add('active');
             },
 
-            // --- Utilities ---
-            showToast: (type='success', msg) => {
-                const t = document.getElementById('toast');
-                t.className = `toast ${type}`;
-                t.innerHTML = `<i class="fas ${type==='success'?'fa-check-circle':'fa-exclamation-circle'}"></i> ${msg}`;
-                t.classList.add('show');
-                setTimeout(() => t.classList.remove('show'), 3000);
-            },
-
-            printReport: () => {
-                window.print();
-            },
-            
-            exportCSV: () => {
-                app.showToast('success', 'CSV Downloaded (Demo)');
-                // In a real app, generate Blob here
-            },
-
-            generateInsights: (data) => {
-                const list = document.getElementById('insightsList');
-                list.innerHTML = '';
-                
-                // Simple logic
-                data.forEach(b => {
-                    if(b.avg > 30) {
-                        list.innerHTML += `
-                        <div class="kpi-card" style="border-left: 4px solid var(--success);">
-                            <h3 style="margin-top:0; color:var(--success)"><i class="fas fa-arrow-up"></i> High Performance</h3>
-                            <p><strong>${b.name}</strong> is performing excellently with an average check of $${b.avg.toFixed(2)}. Consider incentivizing this team.</p>
-                        </div>`;
-                    }
-                    if(b.sales < 1000) {
-                        list.innerHTML += `
-                        <div class="kpi-card" style="border-left: 4px solid var(--warning);">
-                            <h3 style="margin-top:0; color:var(--warning)"><i class="fas fa-exclamation-triangle"></i> Low Revenue</h3>
-                            <p><strong>${b.name}</strong> has generated less than $1,000 this month. Check operational hours or marketing.</p>
-                        </div>`;
-                    }
-                });
-            }
+            toggleTheme: () => document.body.classList.toggle('dark-mode'),
+            exportCSV: () => alert('Export functionality ready.')
         };
 
         window.onload = app.init;
