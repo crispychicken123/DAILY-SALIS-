@@ -2,93 +2,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Crispy Chicken | Enterprise BI Ultimate (Pro)</title>
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             /* Brand Colors */
-            --primary: #e65100;      /* Brand Orange */
-            --primary-light: #ffcc80;
-            --primary-dark: #ac3900;
+            --primary: #ea580c;      /* Vibrant Orange */
+            --primary-light: #ffedd5;
+            --primary-dark: #c2410c;
             
             /* UI Colors */
-            --secondary: #1a252f;   /* Deep Navy */
-            --bg-body: #f4f7f6;
+            --secondary: #0f172a;   /* Slate 900 */
+            --accent: #3b82f6;      /* Blue 500 */
+            --bg-body: #f8fafc;
             --bg-card: #ffffff;
-            --border: #e1e4e8;
-            --text-main: #2c3e50;
-            --text-muted: #7f8c8d;
+            --border: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
             
             /* Status Colors */
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-            --info: #3498db;
+            --success: #10b981;
+            --success-bg: #dcfce7;
+            --danger: #ef4444;
+            --danger-bg: #fee2e2;
+            --warning: #f59e0b;
+            --warning-bg: #fef3c7;
+            --info: #3b82f6;
 
             /* Effects */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 8px;
+            --radius-lg: 12px;
         }
 
-        * { box-sizing: border-box; outline: none; }
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0; padding: 0;
             background-color: var(--bg-body);
             color: var(--text-main);
             height: 100vh;
             display: flex;
             overflow: hidden;
+            font-size: 14px;
         }
 
         /* --- Sidebar --- */
         aside {
             width: 260px;
             background-color: var(--secondary);
-            color: white;
+            color: #94a3b8;
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
-            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-            z-index: 20;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+            z-index: 50;
             transition: transform 0.3s ease;
         }
 
         .brand {
-            padding: 25px 20px;
-            background: rgba(0,0,0,0.2);
-            font-size: 1.2rem;
+            padding: 24px 20px;
+            background: rgba(255,255,255,0.05);
+            font-size: 1.1rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            letter-spacing: -0.025em;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
             gap: 10px;
+            color: white;
         }
-        .brand span { color: var(--primary-light); }
+        .brand i { color: var(--primary); font-size: 1.2rem; }
 
-        .nav-menu { flex: 1; overflow-y: auto; padding: 20px 0; }
+        .nav-menu { flex: 1; overflow-y: auto; padding: 16px 8px; }
 
         .nav-item {
-            padding: 12px 20px;
+            padding: 10px 16px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-radius: var(--radius);
+            margin-bottom: 4px;
             font-size: 0.9rem;
-            color: #bdc3c7;
-            border-left: 3px solid transparent;
         }
         .nav-item:hover { background-color: rgba(255,255,255,0.05); color: white; }
         .nav-item.active {
-            background-color: rgba(255,255,255,0.08);
+            background-color: var(--primary);
             color: white;
-            border-left-color: var(--primary);
             font-weight: 600;
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         /* --- Main Layout --- */
@@ -97,299 +113,322 @@
         /* --- Header --- */
         header {
             background: var(--bg-card);
-            padding: 0 30px;
-            height: 70px;
+            padding: 0 24px;
+            height: 64px;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-shrink: 0;
-            flex-wrap: wrap;
         }
-        .header-left h1 { margin: 0; font-size: 1.4rem; color: var(--secondary); font-weight: 300; }
-        .header-left strong { font-weight: 700; }
         
-        .header-controls { display: flex; gap: 15px; align-items: center; }
+        .mobile-toggle { display: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
+
+        .header-left h1 { margin: 0; font-size: 1.25rem; color: var(--secondary); font-weight: 700; }
+        
+        .header-controls { display: flex; gap: 12px; align-items: center; }
+        
         .control-group {
-            background: #f8f9fa;
-            padding: 5px 10px;
-            border-radius: 6px;
+            background: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: var(--radius);
             border: 1px solid var(--border);
             display: flex; align-items: center; gap: 8px;
         }
+        .control-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; }
+        
         select {
             border: none; background: transparent;
-            font-weight: 600; font-size: 0.9rem;
+            font-weight: 600; font-size: 0.85rem;
             color: var(--secondary); cursor: pointer;
+            padding-right: 4px;
         }
 
         .btn {
-            padding: 8px 16px; border: 1px solid var(--border);
-            border-radius: 6px; background: white;
+            padding: 8px 14px; border: 1px solid var(--border);
+            border-radius: var(--radius); background: white;
             color: var(--text-main); font-size: 0.85rem;
             cursor: pointer; transition: 0.2s;
-            display: flex; align-items: center; gap: 6px;
+            display: flex; align-items: center; gap: 8px;
+            font-weight: 500;
         }
-        .btn:hover { background: #f8f9fa; border-color: #bdc3c7; }
+        .btn:hover { background: #f8fafc; transform: translateY(-1px); }
         .btn-primary { background: var(--secondary); color: white; border: none; }
-        .btn-primary:hover { background: #2c3e50; }
+        .btn-primary:hover { background: #1e293b; }
         .btn-print { background: var(--primary); color: white; border: none; }
         .btn-print:hover { background: var(--primary-dark); }
 
         /* --- Tabs --- */
         .tabs {
             background: var(--bg-card);
-            padding: 0 30px;
+            padding: 0 24px;
             border-bottom: 1px solid var(--border);
-            display: flex; gap: 30px; flex-shrink: 0;
+            display: flex; gap: 32px; flex-shrink: 0;
             overflow-x: auto;
         }
         .tab-btn {
-            padding: 15px 0; background: none; border: none;
-            cursor: pointer; font-weight: 600;
+            padding: 16px 0; background: none; border: none;
+            cursor: pointer; font-weight: 500;
             color: var(--text-muted); position: relative; font-size: 0.9rem;
             white-space: nowrap;
         }
+        .tab-btn:hover { color: var(--secondary); }
         .tab-btn.active { color: var(--secondary); }
         .tab-btn.active::after {
             content: ''; position: absolute; bottom: -1px; left: 0;
-            width: 100%; height: 3px; background: var(--secondary);
+            width: 100%; height: 2px; background: var(--primary);
         }
 
         /* --- Content Area --- */
         .view-container { flex: 1; overflow: hidden; position: relative; background: var(--bg-body); }
         .view {
             display: none; height: 100%; overflow-y: auto;
-            padding: 30px; animation: fadeIn 0.4s ease;
+            padding: 24px; animation: fadeIn 0.3s ease;
         }
         .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- Context Bar --- */
-        .context-bar {
-            background: #fff8e1;
-            border: 1px solid #ffe082;
-            border-left: 5px solid var(--primary);
-            padding: 15px 20px;
-            border-radius: var(--radius);
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .context-info h3 { margin: 0; font-size: 1.1rem; color: var(--secondary); }
-        .context-info p { margin: 5px 0 0; color: var(--text-muted); font-size: 0.9rem; }
-        .context-highlight { font-weight: 700; color: var(--primary-dark); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- KPI Cards --- */
         .kpi-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px; margin-bottom: 30px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px; margin-bottom: 24px;
         }
         .kpi-card {
             background: var(--bg-card); padding: 20px;
-            border-radius: var(--radius); box-shadow: var(--shadow);
-            border-top: 4px solid transparent;
+            border-radius: var(--radius-lg); border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
         }
-        .kpi-card.blue { border-color: var(--primary); }
-        .kpi-card.orange { border-color: var(--warning); }
-        .kpi-card.green { border-color: var(--success); }
-        .kpi-card.purple { border-color: #9b59b6; }
+        .kpi-card::before {
+            content:''; position: absolute; top:0; left:0; width:4px; height:100%;
+            background: var(--border);
+        }
+        .kpi-card.blue::before { background: var(--accent); }
+        .kpi-card.orange::before { background: var(--primary); }
+        .kpi-card.green::before { background: var(--success); }
+        .kpi-card.purple::before { background: #8b5cf6; }
 
-        .kpi-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .kpi-value { font-size: 1.8rem; font-weight: 700; color: var(--secondary); margin-bottom: 5px; }
-        .kpi-sub { font-size: 0.85rem; color: var(--text-muted); }
+        .kpi-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 600; }
+        .kpi-value { font-size: 1.8rem; font-weight: 700; color: var(--secondary); margin-bottom: 4px; letter-spacing: -0.5px; }
+        .kpi-sub { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+        .trend-badge { padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+        .trend-up { background: var(--success-bg); color: #166534; }
+        .trend-down { background: var(--danger-bg); color: #991b1b; }
 
-        /* --- Chart Containers & Filters --- */
-        .chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 30px; }
-        .chart-card { background: var(--bg-card); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; min-height: 350px; }
-        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;}
-        .chart-title { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--secondary); }
+        /* --- Charts & Grids --- */
+        .chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+        @media (max-width: 1024px) { .chart-row { grid-template-columns: 1fr; } }
+
+        .chart-card { 
+            background: var(--bg-card); padding: 20px; 
+            border-radius: var(--radius-lg); border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm); display: flex; flex-direction: column; min-height: 350px; 
+        }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .chart-title { margin: 0; font-size: 1rem; font-weight: 700; color: var(--secondary); }
         
         /* Filter UI */
         .filter-bar {
-            background: var(--bg-body);
-            padding: 10px;
-            border-radius: var(--radius);
-            margin-bottom: 15px;
-            display: flex; flex-wrap: wrap; gap: 10px;
-            border: 1px solid var(--border);
+            background: #f8fafc; padding: 12px; border-radius: var(--radius);
+            margin-bottom: 16px; border: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 12px;
         }
-        .filter-label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); width: 100%; margin-bottom: 5px; }
-        .filter-option { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; cursor: pointer; user-select: none; }
-        .filter-option:hover { color: var(--primary); }
+        .filter-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); width: 100%; margin-bottom: 4px; text-transform: uppercase; }
+        .filter-option { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; cursor: pointer; user-select: none; padding: 4px 8px; border-radius: 4px; transition: background 0.2s;}
+        .filter-option:hover { background: #e2e8f0; }
         .filter-option input { cursor: pointer; accent-color: var(--primary); }
 
         /* Tables */
         .table-container {
-            background: var(--bg-card); border-radius: var(--radius);
-            box-shadow: var(--shadow); overflow: hidden;
-            display: flex; flex-direction: column;
+            background: var(--bg-card); border-radius: var(--radius-lg);
+            border: 1px solid var(--border); overflow: hidden;
+            display: flex; flex-direction: column; margin-bottom: 24px;
         }
         .table-toolbar {
-            padding: 15px 20px; border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center; background: #fafbfc;
+            padding: 12px 20px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center; background: #f8fafc;
         }
-        .data-table-wrapper { flex: 1; overflow: auto; }
+        .data-table-wrapper { overflow: auto; max-height: 400px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
         th {
-            background: #f1f2f6; color: var(--text-muted); font-weight: 600;
-            text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;
-            position: sticky; top: 0; z-index: 5; padding: 12px 10px;
+            background: #f1f5f9; color: var(--text-muted); font-weight: 600;
+            text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em;
+            position: sticky; top: 0; z-index: 5; padding: 12px 16px;
             text-align: left; border-bottom: 1px solid var(--border);
             cursor: pointer; user-select: none;
         }
-        th:hover { background: #e1e4e8; color: var(--secondary); }
-        td { padding: 12px 10px; border-bottom: 1px solid var(--border); color: var(--text-main); vertical-align: middle; }
-        tr:hover td { background-color: #fafbfc; }
-        .num { font-family: 'Consolas', 'Monaco', monospace; text-align: right; }
-        .text-left { text-align: left; }
+        th:hover { background: #e2e8f0; color: var(--secondary); }
+        td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-main); }
+        tr:hover td { background-color: #f8fafc; }
+        .num { font-family: 'Inter', sans-serif; text-align: right; font-variant-numeric: tabular-nums; }
 
-        /* Badges */
-        .badge {
-            display: inline-block; padding: 4px 8px; border-radius: 12px;
-            font-size: 0.75rem; font-weight: 700; color: white;
-        }
-        .badge-high { background-color: var(--success); }
-        .badge-mid { background-color: var(--warning); color: #333; }
-        .badge-low { background-color: var(--danger); }
-
-        /* --- Input Table Styling --- */
+        /* --- Input Table Styling (Sticky) --- */
         .input-table-wrapper {
-            background: var(--bg-card); border-radius: var(--radius);
+            background: var(--bg-card); border-radius: var(--radius-lg);
             box-shadow: var(--shadow); overflow: auto; border: 1px solid var(--border);
+            max-height: calc(100vh - 200px);
         }
-        .entry-table { width: 100%; border-collapse: collapse; min-width: 1000px; }
-        .entry-table th { background: var(--secondary); color: white; padding: 12px; font-size: 0.85rem; position: sticky; top: 0; z-index: 10; }
-        .entry-table td { padding: 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        .entry-table { width: 100%; border-collapse: collapse; min-width: 1200px; }
+        .entry-table th { 
+            background: var(--secondary); color: white; padding: 12px; 
+            font-size: 0.8rem; position: sticky; top: 0; z-index: 10; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .entry-table td { padding: 4px; border-bottom: 1px solid var(--border); vertical-align: top; background: white; }
         
-        tr.entry-row:hover td { background-color: #fff8e1; }
-        tr.entry-row:hover .day-cell { background-color: #ffecb3; color: var(--primary-dark); font-weight: 900; }
         .day-cell {
-            background: #f8f9fa; color: var(--secondary); font-weight: bold;
+            background: #f1f5f9; color: var(--secondary); font-weight: bold;
             text-align: center; width: 50px; vertical-align: middle !important;
             writing-mode: vertical-rl; text-orientation: mixed;
-            border-right: 2px solid var(--primary);
+            border-right: 2px solid var(--border);
             position: sticky; left: 0; z-index: 5;
+            font-size: 0.85rem;
         }
-        .channel-group { border-right:1px solid var(--border); min-width: 140px; }
+        .channel-group { border-right:1px solid var(--border); min-width: 120px; background: white;}
         .channel-group-header {
-            background: #fff3e0; color: var(--primary-dark);
-            padding: 5px; text-align: center; font-size: 0.75rem; font-weight: bold;
-            border-bottom: 1px solid #ffe0b2;
+            background: #fff7ed; color: var(--primary-dark);
+            padding: 8px 4px; text-align: center; font-size: 0.75rem; font-weight: bold;
+            border-bottom: 1px solid #fed7aa;
         }
+        
         .form-input {
-            width: 95%; padding: 6px; border: 1px solid #ddd;
+            width: 100%; padding: 8px 4px; border: 1px solid transparent;
             border-radius: 4px; font-size: 0.85rem; text-align: right;
             transition: 0.2s; margin-bottom: 2px;
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
         }
-        .form-input:focus { border-color: var(--primary); background: #fff8e1; outline: none; box-shadow: 0 0 0 2px rgba(230, 81, 0, 0.1); }
-        .input-trn { font-size: 0.8rem; color: var(--text-muted); border-color: #eee; }
-        @keyframes flashGreen { 0% { background-color: white; } 50% { background-color: #d1fae5; border-color: var(--success); } 100% { background-color: white; } }
-        .saved-anim { animation: flashGreen 0.8s ease-out; }
+        .form-input:hover { background: #e2e8f0; border-color: #cbd5e1; }
+        .form-input:focus { 
+            border-color: var(--primary); background: #fff; 
+            outline: none; box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1); 
+        }
+        
+        .status-indicator {
+            width: 8px; height: 8px; border-radius: 50%; background: #ccc;
+            display: inline-block; margin-left: 4px; opacity: 0;
+        }
+        .status-indicator.saving { background: var(--warning); opacity: 1; animation: pulse 1s infinite; }
+        .status-indicator.saved { background: var(--success); opacity: 1; transition: opacity 1s; }
+
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
         /* --- Heatmap --- */
-        .heatmap-container { background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; border: 1px solid var(--border); overflow-x: auto; }
-        .heatmap-grid { display: grid; grid-template-columns: 120px repeat(8, minmax(80px, 1fr)); gap: 4px; min-width: 800px; }
-        .hm-cell { padding: 10px; text-align: center; border-radius: 4px; font-size: 0.8rem; color: #333; display: flex; align-items: center; justify-content: center; min-height: 30px; font-weight: 700; }
-        .hm-header { font-weight: 700; background: #eee; color: var(--secondary); font-size: 0.8rem; }
+        .heatmap-container { 
+            background: var(--bg-card); border-radius: var(--radius-lg); 
+            padding: 20px; border: 1px solid var(--border); overflow-x: auto; 
+        }
+        .heatmap-grid { display: grid; grid-template-columns: 120px repeat(8, minmax(60px, 1fr)); gap: 4px; min-width: 800px; }
+        .hm-cell { 
+            padding: 12px 4px; text-align: center; border-radius: 6px; font-size: 0.8rem; 
+            color: #333; display: flex; align-items: center; justify-content: center; 
+            min-height: 40px; font-weight: 600; border: 1px solid #f1f5f9;
+        }
+        .hm-header { font-weight: 700; background: #f8fafc; color: var(--secondary); font-size: 0.75rem; text-transform: uppercase; }
         .bg-low { background: #fee2e2; color: #991b1b; }
         .bg-med { background: #fef3c7; color: #92400e; }
-        .bg-high { background: #d1fae5; color: #065f46; }
-        .bg-zero { background: #f1f2f6; color: #ccc; }
+        .bg-high { background: #dcfce7; color: #166534; }
+        .bg-zero { background: #f8fafc; color: #cbd5e1; }
 
+        /* --- Insights --- */
         .insight-card {
-            background: white; padding: 15px; margin-bottom: 15px;
+            background: white; padding: 16px; margin-bottom: 12px;
             border-radius: var(--radius); border: 1px solid var(--border);
-            border-right: 4px solid var(--border); display: flex; gap: 15px;
+            display: flex; gap: 16px; align-items: flex-start;
         }
-        .insight-card.alert { border-right-color: var(--danger); background: #fff5f5; }
-        .insight-card.warn { border-right-color: var(--warning); background: #fffbeb; }
-        .insight-card.info { border-right-color: var(--primary); }
-        .insight-icon { font-size: 1.5rem; opacity: 0.8; }
+        .insight-card.alert { border-left: 4px solid var(--danger); background: #fef2f2; }
+        .insight-card.warn { border-left: 4px solid var(--warning); background: #fffbeb; }
+        .insight-card.success { border-left: 4px solid var(--success); background: #f0fdf4; }
+        .insight-icon { font-size: 1.2rem; margin-top: 2px; opacity: 0.8; }
 
         /* --- Toast --- */
         .toast {
-            position: fixed; bottom: 30px; right: 30px;
+            position: fixed; bottom: 24px; right: 24px;
             background: var(--secondary); color: white;
             padding: 12px 24px; border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            opacity: 0; transform: translateY(20px); transition: 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            opacity: 0; transform: translateY(20px); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000; font-weight: 500; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 8px;
         }
         .toast.show { opacity: 1; transform: translateY(0); }
 
-        /* --- SVG --- */
+        /* --- SVG Chart Styles --- */
         svg { width: 100%; height: 100%; overflow: visible; }
-        .bar { fill: var(--primary); rx: 4; transition: height 0.5s ease, y 0.5s ease; cursor: pointer; }
+        .bar { fill: var(--primary); rx: 4; transition: all 0.3s ease; cursor: pointer; }
         .bar:hover { fill: var(--primary-dark); opacity: 0.9; }
-        .grid-line { stroke: #f1f2f6; stroke-width: 1; }
-        .axis-text { font-size: 10px; fill: #95a5a6; }
+        .grid-line { stroke: #e2e8f0; stroke-width: 1; stroke-dasharray: 4; }
+        .axis-text { font-size: 10px; fill: #94a3b8; font-weight: 500; }
+        .trend-area { fill: url(#trendGradient); opacity: 0.2; transition: d 0.5s ease; }
+        .trend-line { fill: none; stroke: var(--primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; transition: d 0.5s ease; }
+        .trend-dot { fill: white; stroke: var(--primary); stroke-width: 2; cursor: pointer; transition: r 0.2s; }
+        .trend-dot:hover { r: 6; stroke: var(--primary-dark); }
         
-        /* Trend Chart Styles */
-        .trend-area { fill: url(#trendGradient); opacity: 0.2; }
-        .trend-line { fill: none; stroke: var(--secondary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-        .trend-dot { fill: var(--bg-card); stroke: var(--primary); stroke-width: 2; cursor: pointer; transition: r 0.2s; }
-        .trend-dot:hover { r: 6; fill: var(--primary-dark); }
-        .tooltip-text { font-size: 10px; fill: #333; pointer-events: none; }
+        /* Donut */
+        .donut-segment { transition: all 0.3s; cursor: pointer; stroke: #fff; stroke-width: 2px; }
+        .donut-segment:hover { opacity: 0.9; transform: scale(1.02); transform-origin: center; }
 
-        /* Center Text for Donut */
-        .donut-center-text { font-size: 24px; font-weight: bold; fill: var(--secondary); text-anchor: middle; dominant-baseline: middle; }
-        .donut-sub-text { font-size: 12px; fill: var(--text-muted); text-anchor: middle; dominant-baseline: middle; }
-
-        /* =========================================
-           PRINT STYLES
-           ========================================= */
+        /* Context Bar */
+        .context-bar {
+            background: linear-gradient(to right, #fff7ed, #ffffff);
+            border: 1px solid #ffedd5;
+            border-left: 4px solid var(--primary);
+            padding: 16px 20px; border-radius: var(--radius); margin-bottom: 24px;
+            box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        /* PRINT STYLES */
         @media print {
-            body { height: auto !important; overflow: visible !important; background: white !important; color: black !important; font-size: 12pt; display: block !important; }
-            aside, header, .tabs, .context-bar, .toast, .no-print, .filter-bar { display: none !important; }
-            main { display: block !important; height: auto !important; overflow: visible !important; position: static !important; }
-            .view-container { display: block !important; overflow: visible !important; position: static !important; background: white !important; padding: 0 !important; margin: 0 !important; }
+            body { height: auto !important; overflow: visible !important; background: white !important; font-size: 11pt; display: block !important; }
+            aside, header, .tabs, .context-bar, .toast, .no-print, .filter-bar, .mobile-toggle { display: none !important; }
+            main { display: block !important; height: auto !important; overflow: visible !important; }
+            .view-container { display: block !important; overflow: visible !important; background: white !important; padding: 0 !important; margin: 0 !important; }
             .view { display: none !important; height: auto !important; overflow: visible !important; padding: 0 !important; animation: none !important; }
             #view-dashboard { display: block !important; }
             
-            .report-header, .print-footer { display: block !important; text-align: center; margin-bottom: 20px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
-            .report-header h1 { color: var(--primary); margin: 0; font-size: 24pt; }
-            .report-header h2 { margin: 5px 0; font-size: 16pt; color: #333; }
-            .print-footer { margin-top: 30px; font-size: 9pt; color: #666; border-top: 1px solid #eee; padding-top: 10px; }
-
-            .kpi-grid { display: grid !important; grid-template-columns: repeat(4,1fr) !important; gap: 10px !important; margin-bottom: 20px !important; }
+            .report-header { display: block !important; text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+            .report-header h1 { color: var(--primary); font-size: 24pt; }
+            
+            .kpi-grid { display: grid !important; grid-template-columns: repeat(4,1fr) !important; gap: 15px !important; margin-bottom: 30px !important; }
             .kpi-card { box-shadow: none; border:1px solid #ccc; break-inside: avoid; }
-            .chart-row { display: block !important; margin-bottom: 20px; }
-            .chart-card { break-inside: avoid; page-break-inside: avoid; box-shadow: none; border:1px solid #ccc; margin-bottom: 15px; padding: 10px; min-height: 300px; }
-            .chart-card h3 { font-size: 14pt; margin-top: 0; }
-            .heatmap-container { box-shadow: none; border:1px solid #ccc; page-break-inside: avoid; min-width: 100%; }
-
-            .table-container { height: auto !important; border:1px solid #ccc; box-shadow: none; break-inside: avoid; page-break-inside: avoid; margin-top: 20px; }
-            .data-table-wrapper { overflow: visible !important; }
-            th { position: static !important; background: #eee !important; border-bottom: 1px solid black !important; color: black !important; }
-            td { border-bottom: 1px solid #ccc !important; color: black !important; }
+            
+            .chart-row { display: block !important; margin-bottom: 30px; }
+            .chart-card { break-inside: avoid; page-break-inside: avoid; box-shadow: none; border:1px solid #ccc; margin-bottom: 20px; min-height: 300px; }
+            .heatmap-container { break-inside: avoid; min-width: 100%; }
+            
+            .table-container { height: auto !important; border:1px solid #ccc; box-shadow: none; break-inside: avoid; margin-top: 20px; }
+            .data-table-wrapper { overflow: visible !important; max-height: none; }
+            th { position: static !important; background: #eee !important; color: black !important; }
             tr { page-break-inside: avoid; }
-            svg { width: 100% !important; height: auto !important; display: block; }
-            @page { size: A4 landscape; margin: 1.5cm; }
-        }
-        
-        /* Mobile Adjustments */
-        @media (max-width: 1024px) {
-            .chart-row { grid-template-columns: 1fr; }
+            svg { width: 100% !important; height: auto !important; }
+            @page { size: A4 landscape; margin: 1cm; }
         }
         
         .report-header { display: none; }
-        .print-footer { display: none; }
+        
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            aside { position: fixed; left: -260px; height: 100%; box-shadow: 2px 0 20px rgba(0,0,0,0.2); }
+            aside.open { transform: translateX(260px); left: -260px; } /* Actually just move into view */
+            aside.open { left: 0; }
+            .mobile-toggle { display: block; }
+            .header-controls select { display: none; } /* Hide long selects on mobile */
+            .header-controls .btn span { display: none; } /* Hide text on buttons */
+        }
     </style>
 </head>
 <body>
 
     <!-- Sidebar -->
-    <aside>
-        <div class="brand">🍗 Crispy <span>BI</span></div>
+    <aside id="sidebar">
+        <div class="brand">
+            <i class="fas fa-fire-burner"></i> 
+            <span>CRISPY <span style="color:var(--primary-light)">BI</span></span>
+        </div>
         <div class="nav-menu" id="navList"></div>
-        <div style="padding: 20px; font-size: 0.8rem; color: #7f8c8d; border-top: 1px solid rgba(255,255,255,0.1);">
-            <button onclick="app.resetDatabase()" style="background:none; border:none; color:#e74c3c; cursor:pointer; width:100%; text-align:left;">
-                <i class="fas fa-database"></i> Reset Database
+        <div class="sidebar-footer">
+            <button onclick="app.resetDatabase()" style="background:none; border:none; color:#94a3b8; cursor:pointer; width:100%; text-align:left; display:flex; align-items:center; gap:8px; padding:8px; border-radius:4px;">
+                <i class="fas fa-rotate-left"></i> Reset Data
             </button>
         </div>
     </aside>
@@ -397,27 +436,30 @@
     <!-- Main Content -->
     <main>
         <header>
-            <div class="header-left">
-                <h1><strong>Executive</strong> Dashboard</h1>
+            <div style="display:flex; align-items:center; gap:16px;">
+                <i class="fas fa-bars mobile-toggle" onclick="toggleSidebar()"></i>
+                <div class="header-left">
+                    <h1>Executive Dashboard</h1>
+                </div>
             </div>
             <div class="header-controls no-print">
                 
                 <div class="control-group">
-                    <span style="font-size:0.75rem; color:#999; font-weight:600;">BRANCH:</span>
+                    <span class="control-label">BRANCH</span>
                     <select id="branchSelector" onchange="app.filterBranch(this.value)">
-                        <option value="all">All Branches (Company)</option>
+                        <option value="all">All Branches</option>
                     </select>
                 </div>
 
                 <div class="control-group">
-                    <span style="font-size:0.75rem; color:#999; font-weight:600;">PERIOD:</span>
+                    <span class="control-label">PERIOD</span>
                     <select id="scopeSelector" onchange="app.updatePeriod()">
-                        <option value="month">This Month</option>
+                        <option value="month">Month</option>
                         <option value="q1">Q1</option>
                         <option value="q2">Q2</option>
                         <option value="q3">Q3</option>
                         <option value="q4">Q4</option>
-                        <option value="year">Full Year 2026</option>
+                        <option value="year">Full Year</option>
                     </select>
                     <select id="monthSelector" onchange="app.updatePeriod()">
                         <option value="2026-01">Jan</option>
@@ -435,20 +477,20 @@
                     </select>
                 </div>
                 <button class="btn btn-print" onclick="app.printReport()">
-                    <i class="fas fa-print"></i> Print
+                    <i class="fas fa-print"></i> <span>Print</span>
                 </button>
                 <button class="btn btn-primary" onclick="app.exportCSV()">
-                    <i class="fas fa-file-csv"></i> CSV
+                    <i class="fas fa-file-csv"></i> <span>Export</span>
                 </button>
             </div>
         </header>
 
         <div class="tabs no-print">
-            <button class="tab-btn active" onclick="app.switchTab('dashboard')"><i class="fas fa-chart-line"></i> Overview</button>
-            <button class="tab-btn" onclick="app.switchTab('entry')"><i class="fas fa-edit"></i> Data Entry</button>
-            <button class="tab-btn" onclick="app.switchTab('branches')"><i class="fas fa-store"></i> Branch Perf</button>
-            <button class="tab-btn" onclick="app.switchTab('channels')"><i class="fas fa-truck"></i> Channel Perf</button>
-            <button class="tab-btn" onclick="app.switchTab('insights')"><i class="fas fa-brain"></i> Auto Insights</button>
+            <button class="tab-btn active" onclick="app.switchTab('dashboard')"><i class="fas fa-chart-pie"></i> Overview</button>
+            <button class="tab-btn" onclick="app.switchTab('entry')"><i class="fas fa-pen-to-square"></i> Data Entry</button>
+            <button class="tab-btn" onclick="app.switchTab('branches')"><i class="fas fa-store"></i> Branches</button>
+            <button class="tab-btn" onclick="app.switchTab('channels')"><i class="fas fa-truck-fast"></i> Channels</button>
+            <button class="tab-btn" onclick="app.switchTab('insights')"><i class="fas fa-lightbulb"></i> Insights</button>
         </div>
 
         <div class="view-container">
@@ -456,79 +498,71 @@
             <!-- VIEW 1: Executive Overview -->
             <div id="view-dashboard" class="view active">
                 <div class="report-header">
-                    <h1>Crispy Chicken</h1>
-                    <h2>Executive Monthly Summary</h2>
-                    <p id="printDateRange">Date Range: Loading...</p>
+                    <h1>Crispy Chicken Enterprise</h1>
+                    <h2 style="margin:5px 0; color:#333;">Financial Performance Report</h2>
+                    <p id="printDateRange">Period: 2026</p>
                 </div>
 
                 <!-- KPIs -->
                 <div class="kpi-grid">
-                    <div class="kpi-card blue">
+                    <div class="kpi-card orange">
                         <div class="kpi-label">Total Revenue</div>
                         <div class="kpi-value" id="kpiSales">$0.00</div>
                         <div class="kpi-sub" id="kpiScopeName">All Branches</div>
                     </div>
-                    <div class="kpi-card orange">
-                        <div class="kpi-label">Avg Check</div>
+                    <div class="kpi-card blue">
+                        <div class="kpi-label">Avg Check (AOV)</div>
                         <div class="kpi-value" id="kpiAvg">$0.00</div>
-                        <div class="kpi-sub">Global Avg</div>
+                        <div class="kpi-sub">Target: $25.00</div>
                     </div>
                     <div class="kpi-card green">
-                        <div class="kpi-label">Total Orders</div>
+                        <div class="kpi-label">Transactions</div>
                         <div class="kpi-value" id="kpiTrn">0</div>
-                        <div class="kpi-sub">Transactions</div>
+                        <div class="kpi-sub">Total Orders</div>
                     </div>
                     <div class="kpi-card purple">
                         <div class="kpi-label">Top Performer</div>
-                        <div class="kpi-value" id="kpiTop" style="font-size:1.2rem;">-</div>
-                        <div class="kpi-sub">Best Branch</div>
+                        <div class="kpi-value" id="kpiTop" style="font-size:1.1rem; line-height:1.8rem;">-</div>
+                        <div class="kpi-sub">Highest Revenue</div>
                     </div>
                 </div>
 
-                <!-- Charts Row 1 -->
+                <!-- Charts Row -->
                 <div class="chart-row">
-                    <!-- Channel Mix WITH FILTER -->
                     <div class="chart-card">
                         <div class="chart-header">
-                            <h3 class="chart-title">Channel Mix</h3>
+                            <h3 class="chart-title">Revenue Channel Mix</h3>
                         </div>
-                        <!-- FILTER -->
-                        <div class="filter-bar" id="mixFilterBar">
-                            <!-- Populated by JS -->
-                        </div>
-                        <div style="position: relative; height: 250px;">
-                            <svg id="channelChart" viewBox="0 0 300 300" style="height: 100%;"></svg>
-                            <!-- Center Text Overlay -->
+                        <div class="filter-bar" id="mixFilterBar"></div>
+                        <div style="position: relative; height: 260px;">
+                            <svg id="channelChart" viewBox="0 0 300 300"></svg>
                             <div style="position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center; pointer-events:none;">
-                                <div class="donut-center-text" id="donutTotalVal"></div>
-                                <div class="donut-sub-text" id="donutPctVal">100%</div>
+                                <div class="kpi-value" id="donutTotalVal" style="font-size:1.5rem;">-</div>
+                                <div class="kpi-label">Total</div>
                             </div>
                         </div>
                     </div>
                     <div class="chart-card">
                         <div class="chart-header"><h3 class="chart-title">Revenue by Branch</h3></div>
-                        <svg id="branchChart" viewBox="0 0 600 250" preserveAspectRatio="none"></svg>
+                        <svg id="branchChart" viewBox="0 0 400 250" preserveAspectRatio="none"></svg>
                     </div>
                 </div>
 
-                <!-- Daily Delivery Trend WITH FILTER -->
-                <div class="chart-card" style="margin-bottom:30px; border-left: 5px solid var(--secondary);">
+                <!-- Trend Chart -->
+                <div class="chart-card" style="margin-bottom:24px;">
                     <div class="chart-header">
                         <div>
                             <h3 class="chart-title" style="margin:0;">Daily Delivery Trend</h3>
-                            <span style="font-size:0.8rem; color:var(--text-muted);">Aggregated from selected channels</span>
+                            <span style="font-size:0.8rem; color:var(--text-muted);">Filtered by active channels</span>
                         </div>
                     </div>
-                    <!-- FILTER -->
-                    <div class="filter-bar" id="trendFilterBar">
-                        <!-- Populated by JS -->
-                    </div>
-                    <div style="position: relative; height: 200px;">
-                        <svg id="trendChart" viewBox="0 0 800 200" preserveAspectRatio="none" style="height: 100%;">
+                    <div class="filter-bar" id="trendFilterBar"></div>
+                    <div style="position: relative; height: 220px;">
+                        <svg id="trendChart" viewBox="0 0 800 200" preserveAspectRatio="none">
                             <defs>
                                 <linearGradient id="trendGradient" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.2"/>
-                                    <stop offset="100%" stop-color="var(--secondary)" stop-opacity="0"/>
+                                    <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.2"/>
+                                    <stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/>
                                 </linearGradient>
                             </defs>
                         </svg>
@@ -537,12 +571,11 @@
 
                 <!-- HEATMAP -->
                 <div class="heatmap-container">
-                    <div class="chart-header" style="margin-bottom:15px;">
-                        <h3 class="chart-title" style="margin:0;">Branch x Channel TRN Heatmap</h3>
-                        <div style="font-size:0.8rem; color:var(--text-muted);">
-                            <span class="badge bg-low">Low &lt;30</span> 
-                            <span class="badge bg-med">Med &lt;60</span> 
-                            <span class="badge bg-high">High &gt;60</span>
+                    <div class="chart-header" style="margin-bottom:16px;">
+                        <h3 class="chart-title" style="margin:0;">Branch x Channel Volume Heatmap</h3>
+                        <div style="font-size:0.75rem; display:flex; gap:8px;">
+                            <span class="badge" style="background:var(--success-bg); color:var(--success); padding:2px 6px; border-radius:4px;">High Vol</span> 
+                            <span class="badge" style="background:var(--warning-bg); color:var(--warning); padding:2px 6px; border-radius:4px;">Med Vol</span>
                         </div>
                     </div>
                     <div id="heatmapContainer" class="heatmap-grid"></div>
@@ -557,10 +590,10 @@
                         <table id="branchTable">
                             <thead>
                                 <tr>
-                                    <th onclick="app.handleSort('name')">Branch <i class="fas fa-sort"></i></th>
-                                    <th onclick="app.handleSort('sales')">Sales <i class="fas fa-sort"></i></th>
-                                    <th onclick="app.handleSort('trn')">TRN <i class="fas fa-sort"></i></th>
-                                    <th onclick="app.handleSort('avg')">Avg <i class="fas fa-sort"></i></th>
+                                    <th onclick="app.handleSort('name')">Branch <i class="fas fa-sort" style="margin-left:4px; font-size:0.7em;"></i></th>
+                                    <th onclick="app.handleSort('sales')">Sales <i class="fas fa-sort" style="margin-left:4px; font-size:0.7em;"></i></th>
+                                    <th onclick="app.handleSort('trn')">TRN <i class="fas fa-sort" style="margin-left:4px; font-size:0.7em;"></i></th>
+                                    <th onclick="app.handleSort('avg')">Avg <i class="fas fa-sort" style="margin-left:4px; font-size:0.7em;"></i></th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -568,25 +601,24 @@
                         </table>
                     </div>
                 </div>
-
-                <div class="print-footer">
-                    Confidential Report - Crispy Chicken Enterprise BI - Generated on <span id="printGenDate"></span>
-                </div>
             </div>
 
             <!-- VIEW 2: Data Entry -->
             <div id="view-entry" class="view">
                 <div class="context-bar">
-                    <div class="context-info">
-                        <h3><i class="fas fa-pen"></i> Editing Data</h3>
-                        <p>Target: <strong id="ctxBranchName" class="context-highlight">Loading...</strong> | Period: <strong id="ctxMonthName" class="context-highlight">Loading...</strong></p>
+                    <div>
+                        <h3 style="margin:0; font-size:1rem; color:var(--secondary);">Editing Data</h3>
+                        <p style="margin:4px 0 0; font-size:0.85rem; color:var(--text-muted);">
+                            Branch: <strong id="ctxBranchName" class="context-highlight">-</strong> | 
+                            Month: <strong id="ctxMonthName" class="context-highlight">-</strong>
+                        </p>
                     </div>
                     <div style="display:flex; gap:10px;">
                         <button class="btn" style="background:var(--primary); color:white; border:none;" onclick="app.copyPreviousDay()">
                             <i class="fas fa-copy"></i> Copy Prev Day
                         </button>
                         <button class="btn" onclick="app.resetMonth()" style="color:var(--danger); border-color:var(--danger);">
-                            <i class="fas fa-trash"></i> Clear Month
+                            <i class="fas fa-trash"></i> Clear
                         </button>
                     </div>
                 </div>
@@ -601,20 +633,10 @@
             <!-- VIEW 3: Branch Performance -->
             <div id="view-branches" class="view">
                  <div class="table-container">
-                    <div class="table-toolbar">
-                        <div style="font-weight:600; color:var(--secondary);">Detailed Branch Analysis</div>
-                    </div>
+                    <div class="table-toolbar"><div style="font-weight:600; color:var(--secondary);">Detailed Branch Analysis</div></div>
                     <div class="data-table-wrapper">
                         <table id="branchTable2">
-                             <thead>
-                                <tr>
-                                    <th onclick="app.handleSort('name')">Branch <i class="fas fa-sort"></i></th>
-                                    <th onclick="app.handleSort('sales')">Sales <i class="fas fa-sort"></i></th>
-                                    <th onclick="app.handleSort('trn')">TRN <i class="fas fa-sort"></i></th>
-                                    <th onclick="app.handleSort('avg')">Avg <i class="fas fa-sort"></i></th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
+                             <thead><tr><th>Branch</th><th>Sales</th><th>TRN</th><th>Avg</th><th>Status</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -624,12 +646,10 @@
             <!-- VIEW 4: Channel Performance -->
             <div id="view-channels" class="view">
                  <div class="table-container">
-                    <div class="table-toolbar">
-                        <div style="font-weight:600; color:var(--secondary);">Channel Performance Summary</div>
-                    </div>
+                    <div class="table-toolbar"><div style="font-weight:600; color:var(--secondary);">Channel Performance Summary</div></div>
                     <div class="data-table-wrapper">
                         <table id="channelTable">
-                            <thead></thead>
+                            <thead><tr><th>Channel</th><th>Sales</th><th>TRN</th><th>Avg</th><th>Share</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
@@ -638,14 +658,14 @@
 
             <!-- VIEW 5: Auto Insights -->
             <div id="view-insights" class="view">
-                <h2 style="margin-top:0; border-bottom:2px solid var(--primary); display:inline-block;">🔍 Auto Insights Engine</h2>
+                <h2 style="margin-top:0; border-bottom:2px solid var(--primary); display:inline-block; font-size:1.25rem;">🔍 Intelligence Engine</h2>
                 <div id="insightsList"></div>
             </div>
 
         </div>
     </main>
 
-    <div id="toast" class="toast">Data Saved</div>
+    <div id="toast" class="toast"><i class="fas fa-check-circle"></i> Saved Successfully</div>
 
     <script>
         // --- Config & State ---
@@ -662,13 +682,9 @@
                 { id: 'delivero', label: 'Deliveroo' }
             ],
             deliveryChannels: ['delivery', 'keeta', 'noon', 'careem', 'smiles', 'delivero'],
-            targets: {
-                avgCheck: 25,
-                lowTrnThreshold: 30
-            }
+            targets: { avgCheck: 25, lowTrnThreshold: 30 }
         };
 
-        // --- PROVIDED DATASET ---
         const RAW_DATA = `1/1/2026	Hamdan St	Dine In	11086.9	425
 1/1/2026	Hamdan St	Delivery	2187	46
 1/1/2026	Hamdan St	Online	839	12
@@ -742,101 +758,64 @@
             activeBranchIdx: 0,
             activeFilterBranch: 'all',
             sort: { col: 'sales', dir: 'desc' },
-            // FILTER STATE
-            filters: {
-                mix: [], // List of channel IDs
-                trend: [] // List of channel IDs
-            }
+            filters: { mix: [], trend: [] }
         };
 
-        // --- Core App Controller ---
+        // --- App Controller ---
         const app = {
             init: () => {
-                // Initialize filters (all selected by default)
-                CONFIG.channels.forEach(c => {
-                    state.filters.mix.push(c.id);
-                    if(CONFIG.deliveryChannels.includes(c.id)) state.filters.trend.push(c.id);
-                });
+                // Init filters
+                CONFIG.channels.forEach(c => state.filters.mix.push(c.id));
+                CONFIG.deliveryChannels.forEach(c => state.filters.trend.push(c.id));
 
                 app.loadData();
-                // Only import seed data if DB is completely empty
-                if(Object.keys(state.db).length === 0 || !state.db[CONFIG.branches[0]]) {
-                    app.importSeedData(); 
-                }
+                if(Object.keys(state.db).length === 0 || !state.db[CONFIG.branches[0]]) app.importSeedData(); 
+                
                 app.renderNav();
                 app.populateBranchSelect(); 
                 app.updateContextHeader();
-                app.renderFilters(); // Render checkboxes
-                
+                app.renderFilters();
                 document.getElementById('monthSelector').value = "2026-01";
                 app.updatePeriod();
             },
 
-            // --- RESET DB ---
             resetDatabase: () => {
-                if(confirm("Are you sure? This will wipe all saved data and reload the default dataset.")) {
+                if(confirm("Reset all data to factory defaults? This cannot be undone.")) {
                     localStorage.removeItem('crispy_ultimate_db');
                     location.reload();
                 }
             },
 
-            // --- HANDLE SORTING ---
             handleSort: (column) => {
-                if(state.sort.col === column) {
-                    state.sort.dir = state.sort.dir === 'asc' ? 'desc' : 'asc';
-                } else {
-                    state.sort.col = column;
-                    state.sort.dir = 'desc';
-                }
-                app.updatePeriod(); // Re-render tables
+                if(state.sort.col === column) state.sort.dir = state.sort.dir === 'asc' ? 'desc' : 'asc';
+                else { state.sort.col = column; state.sort.dir = 'desc'; }
+                app.updatePeriod();
             },
 
-            // --- RENDER FILTER UI ---
             renderFilters: () => {
-                // Channel Mix Filter
                 const mixBar = document.getElementById('mixFilterBar');
-                mixBar.innerHTML = '<div class="filter-label">Filter Mix:</div>';
+                mixBar.innerHTML = '<div class="filter-label">Filter Channels</div>';
                 CONFIG.channels.forEach(c => {
-                    mixBar.innerHTML += `
-                        <label class="filter-option">
-                            <input type="checkbox" checked onchange="app.toggleFilter('mix', '${c.id}', this.checked)">
-                            ${c.label}
-                        </label>`;
+                    mixBar.innerHTML += `<label class="filter-option"><input type="checkbox" checked onchange="app.toggleFilter('mix', '${c.id}', this.checked)">${c.label}</label>`;
                 });
 
-                // Trend Filter (Delivery Only)
                 const trendBar = document.getElementById('trendFilterBar');
-                trendBar.innerHTML = '<div class="filter-label">Filter Trend (Delivery Only):</div>';
+                trendBar.innerHTML = '<div class="filter-label">Delivery Channels</div>';
                 CONFIG.channels.filter(c => CONFIG.deliveryChannels.includes(c.id)).forEach(c => {
-                    trendBar.innerHTML += `
-                        <label class="filter-option">
-                            <input type="checkbox" checked onchange="app.toggleFilter('trend', '${c.id}', this.checked)">
-                            ${c.label}
-                        </label>`;
+                    trendBar.innerHTML += `<label class="filter-option"><input type="checkbox" checked onchange="app.toggleFilter('trend', '${c.id}', this.checked)">${c.label}</label>`;
                 });
             },
 
             toggleFilter: (type, chId, isChecked) => {
-                if(type === 'mix') {
-                    if(isChecked) state.filters.mix.push(chId);
-                    else state.filters.mix = state.filters.mix.filter(id => id !== chId);
-                }
-                if(type === 'trend') {
-                    if(isChecked) state.filters.trend.push(chId);
-                    else state.filters.trend = state.filters.trend.filter(id => id !== chId);
-                }
-                app.updatePeriod(); // Re-render charts
+                if(isChecked) state.filters[type].push(chId);
+                else state.filters[type] = state.filters[type].filter(id => id !== chId);
+                app.updatePeriod();
             },
 
             loadData: () => {
                 const saved = localStorage.getItem('crispy_ultimate_db');
                 if(saved) {
-                    try {
-                        state.db = JSON.parse(saved);
-                    } catch(e) {
-                        console.error("Corrupt DB found, resetting.");
-                        state.db = {};
-                    }
+                    try { state.db = JSON.parse(saved); } catch(e) { state.db = {}; }
                 }
                 else CONFIG.branches.forEach(b => state.db[b] = {});
             },
@@ -844,53 +823,36 @@
             saveData: () => {
                 localStorage.setItem('crispy_ultimate_db', JSON.stringify(state.db));
                 app.showToast();
-                app.updatePeriod();
+                app.updatePeriod(); // Refresh dashboard in background
             },
 
             populateBranchSelect: () => {
                 const sel = document.getElementById('branchSelector');
-                sel.innerHTML = '<option value="all">All Branches (Company)</option>';
-                CONFIG.branches.forEach(b => {
-                    const opt = document.createElement('option');
-                    opt.value = b;
-                    opt.text = b;
-                    sel.appendChild(opt);
-                });
+                sel.innerHTML = '<option value="all">All Branches</option>';
+                CONFIG.branches.forEach(b => sel.add(new Option(b, b)));
             },
 
             filterBranch: (val) => {
                 state.activeFilterBranch = val;
-                if(val !== 'all') {
-                    state.activeBranchIdx = CONFIG.branches.indexOf(val);
-                } else {
-                    state.activeBranchIdx = 0; // Default to first if 'all'
-                }
+                state.activeBranchIdx = val === 'all' ? 0 : CONFIG.branches.indexOf(val);
                 app.renderNav();
-                if(document.getElementById('view-entry').classList.contains('active')) {
-                    app.renderEntryForm();
-                }
+                if(document.getElementById('view-entry').classList.contains('active')) app.renderEntryForm();
                 app.updatePeriod();
             },
 
             printReport: () => {
                 app.switchTab('dashboard');
-                const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-                const [y, m] = state.currentMonth.split('-').map(Number);
-                document.getElementById('printDateRange').textContent = `${monthNames[m-1]} ${y}`;
-                document.getElementById('printGenDate').textContent = new Date().toLocaleDateString();
-                setTimeout(() => { window.print(); }, 500);
+                document.getElementById('printDateRange').textContent = `Period: ${state.currentMonth} (${state.currentScope})`;
+                setTimeout(() => window.print(), 100);
             },
 
             updatePeriod: () => {
                 state.currentScope = document.getElementById('scopeSelector').value;
                 state.currentMonth = document.getElementById('monthSelector').value;
-                
                 app.updateContextHeader();
-                app.renderEntryForm();
+                if(document.getElementById('view-entry').classList.contains('active')) app.renderEntryForm();
                 
                 const { branchStats, channelStats, total } = app.processData();
-                
-                // Apply Sorting before rendering tables
                 app.applySort(branchStats);
 
                 app.renderKPIs(total);
@@ -898,7 +860,7 @@
                 app.renderChannelChart(channelStats); 
                 app.renderDeliveryTrendChart();
                 app.renderHeatmap(branchStats); 
-                app.renderBranchTable(branchStats, total);
+                app.renderBranchTable(branchStats);
                 app.renderChannelTable(channelStats, branchStats, total);
                 app.generateInsights(branchStats, channelStats, total);
             },
@@ -906,24 +868,17 @@
             applySort: (data) => {
                 const { col, dir } = state.sort;
                 data.sort((a, b) => {
-                    let valA = a[col];
-                    let valB = b[col];
-                    
-                    if(typeof valA === 'string') {
-                        return dir === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
-                    } else {
-                        return dir === 'asc' ? valA - valB : valB - valA;
-                    }
+                    let valA = a[col], valB = b[col];
+                    if(typeof valA === 'string') return dir === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                    else return dir === 'asc' ? valA - valB : valB - valA;
                 });
             },
 
             updateContextHeader: () => {
                 const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
                 const [y, m] = state.currentMonth.split('-').map(Number);
-                const mName = monthNames[m-1] + " " + y;
-                
                 document.getElementById('ctxBranchName').innerText = CONFIG.branches[state.activeBranchIdx];
-                document.getElementById('ctxMonthName').innerText = mName;
+                document.getElementById('ctxMonthName').innerText = monthNames[m-1] + " " + y;
             },
 
             importSeedData: () => {
@@ -932,7 +887,6 @@
                     if(!line.trim()) return;
                     const parts = line.split('\t');
                     if(parts.length < 4) return;
-
                     const [dateStr, branchName, channelLabel, salesStr, trnStr] = parts;
                     
                     const dParts = dateStr.split('/');
@@ -952,17 +906,14 @@
                     if(trnStr === 'undefined' || isNaN(trnVal)) trnVal = 0;
                     state.db[branchName][isoDate][chId].trn = trnVal;
                 });
+                app.saveData(); // Save immediately after seed
             },
 
             processData: () => {
                 const { start, end } = app.getRange();
                 let total = { sales: 0, trn: 0 };
                 let branchStats = [];
-
-                let branchesToProcess = CONFIG.branches;
-                if(state.activeFilterBranch !== 'all') {
-                    branchesToProcess = [state.activeFilterBranch];
-                }
+                let branchesToProcess = state.activeFilterBranch === 'all' ? CONFIG.branches : [state.activeFilterBranch];
 
                 branchesToProcess.forEach(b => {
                     let row = { name: b, sales: 0, trn: 0, channels: {} };
@@ -981,26 +932,16 @@
                         });
                     }
                     row.avg = row.trn > 0 ? row.sales / row.trn : 0;
-                    
-                    let best = {id:'', val:-1}, worst = {id:'', val:99999};
-                    Object.keys(row.channels).forEach(k => {
-                        if(row.channels[k].sales > best.val) best = {id:k, val:row.channels[k].sales};
-                        if(row.channels[k].sales < worst.val && row.channels[k].sales > 0) worst = {id:k, val:row.channels[k].sales};
-                    });
-                    row.bestLabel = best.val > 0 ? CONFIG.channels.find(c=>c.id===best.id).label.split(' ')[0] : "-";
-                    row.worstLabel = worst.val < 99999 ? CONFIG.channels.find(c=>c.id===worst.id).label.split(' ')[0] : "-";
-
                     branchStats.push(row);
                     total.sales += row.sales; total.trn += row.trn;
                 });
 
                 let channelStats = {};
-                CONFIG.channels.forEach(c => channelStats[c.id] = { sales:0, trn:0, branches:{} });
+                CONFIG.channels.forEach(c => channelStats[c.id] = { sales:0, trn:0 });
                 branchStats.forEach(b => {
                     Object.keys(b.channels).forEach(chId => {
                         channelStats[chId].sales += b.channels[chId].sales;
                         channelStats[chId].trn += b.channels[chId].trn;
-                        channelStats[chId].branches[b.name] = b.channels[chId].sales;
                     });
                 });
 
@@ -1009,7 +950,7 @@
 
             getRange: () => {
                 const [y, m] = state.currentMonth.split('-').map(Number);
-                let start = new Date(2026, 0, 1), end = new Date(2026, 11, 31);
+                let start = new Date(y, 0, 1), end = new Date(y, 11, 31);
                 if (state.currentScope === 'month') { start = new Date(y, m-1, 1); end = new Date(y, m, 0); }
                 else if (state.currentScope === 'q1') { start = new Date(2026, 0, 1); end = new Date(2026, 2, 31); }
                 else if (state.currentScope === 'q2') { start = new Date(2026, 3, 1); end = new Date(2026, 5, 30); }
@@ -1018,27 +959,20 @@
                 return { start, end };
             },
 
-            // --- IMPROVED DATA ENTRY ---
             copyPreviousDay: () => {
                 const [y, m] = state.currentMonth.split('-').map(Number);
                 const days = new Date(y, m, 0).getDate();
                 const bName = CONFIG.branches[state.activeBranchIdx];
-                if(!confirm("Copy data from Previous Day to Current Day for ALL rows?")) return;
+                if(!confirm("Copy data from Previous Day for the rest of the month?")) return;
 
                 for(let d=2; d<=days; d++) {
                     const prevIso = `${y}-${String(m).padStart(2,'0')}-${String(d-1).padStart(2,'0')}`;
                     const currIso = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-                    
                     const prevData = state.db[bName]?.[prevIso];
-                    if(prevData) {
-                        // Deep copy to avoid reference issues
-                        state.db[bName][currIso] = JSON.parse(JSON.stringify(prevData));
-                    }
+                    if(prevData) state.db[bName][currIso] = JSON.parse(JSON.stringify(prevData));
                 }
-                
                 app.saveData();
                 app.renderEntryForm();
-                alert("Data copied successfully!");
             },
 
             renderEntryForm: () => {
@@ -1047,11 +981,8 @@
                 const days = new Date(y, m, 0).getDate();
                 const bName = CONFIG.branches[state.activeBranchIdx];
                 
-                // Optimization: Only rebuild if needed, but for safety/cleanliness we'll rebuild
                 let html = '<thead><tr><th class="day-cell">Day</th>';
-                CONFIG.channels.forEach(ch => {
-                    html += `<th class="channel-group"><div class="channel-group-header">${ch.label}</div></th>`;
-                });
+                CONFIG.channels.forEach(ch => html += `<th class="channel-group"><div class="channel-group-header">${ch.label}</div></th>`);
                 html += '</tr></thead>';
 
                 let rowsHtml = '<tbody>';
@@ -1064,9 +995,9 @@
                         const val = dayData[ch.id] || { sales:'', trn:'' };
                         rowHtml += `
                             <td class="channel-group">
-                                <input type="number" class="form-input" placeholder="Sales" value="${val.sales}" 
+                                <input type="number" class="form-input" placeholder="0" value="${val.sales}" 
                                     onchange="app.saveEntry('${iso}', '${ch.id}', 'sales', this)">
-                                <input type="number" class="form-input input-trn" placeholder="TRN" value="${val.trn}" 
+                                <input type="number" class="form-input" style="font-size:0.8rem; opacity:0.7;" placeholder="0" value="${val.trn}" 
                                     onchange="app.saveEntry('${iso}', '${ch.id}', 'trn', this)">
                             </td>
                         `;
@@ -1075,7 +1006,6 @@
                     rowsHtml += rowHtml;
                 }
                 rowsHtml += '</tbody>';
-                
                 table.innerHTML = html + rowsHtml;
             },
 
@@ -1088,15 +1018,18 @@
                 const val = parseFloat(inputEl.value) || 0;
                 state.db[bName][date][chId][key] = val;
 
-                // Visual feedback
-                inputEl.classList.remove('saved-anim');
-                void inputEl.offsetWidth; // Trigger reflow
-                inputEl.classList.add('saved-anim');
+                // Feedback
+                const indicator = document.createElement('span');
+                indicator.className = 'status-indicator saving';
+                inputEl.parentElement.appendChild(indicator);
                 
+                // Debounce Save
                 if(window.saveTimeout) clearTimeout(window.saveTimeout);
                 window.saveTimeout = setTimeout(() => {
                     app.saveData();
-                }, 500);
+                    indicator.className = 'status-indicator saved';
+                    setTimeout(() => indicator.remove(), 2000);
+                }, 1000);
             },
 
             resetMonth: () => {
@@ -1114,7 +1047,7 @@
             },
 
             renderKPIs: (total) => {
-                document.getElementById('kpiSales').textContent = total.sales.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+                document.getElementById('kpiSales').textContent = total.sales.toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
                 document.getElementById('kpiTrn').textContent = total.trn.toLocaleString(undefined, {maximumFractionDigits:0});
                 const avg = total.trn > 0 ? (total.sales / total.trn) : 0;
                 document.getElementById('kpiAvg').textContent = avg.toFixed(2);
@@ -1122,26 +1055,22 @@
             },
 
             renderCharts: (data) => {
-                const svg = document.getElementById('branchChart'); 
-                if(!svg) return;
+                const svg = document.getElementById('branchChart'); if(!svg) return;
                 svg.innerHTML = '';
-                
-                const h = 250, w = 600;
-                const padTop = 40, padBot = 20, padLeft = 80, padRight = 40;
+                const h = 250, w = 400;
+                const padTop = 30, padBot = 30, padLeft = 10, padRight = 10;
                 const allSales = data.map(d=>d.sales);
-                const maxVal = allSales.length > 0 ? Math.max(...allSales) : 100; // Avoid div by zero
+                const maxVal = Math.max(...allSales, 100); 
                 
                 const availH = h - padTop - padBot;
                 const availW = w - padLeft - padRight;
                 const barCount = data.length;
-                const gap = 15; 
+                const gap = 8; 
                 const barW = (availW - (gap * (barCount - 1))) / barCount;
 
                 for(let i=0; i<=4; i++) {
                     const y = padTop + (availH * (i/4));
-                    const valLabel = Math.round((maxVal * (i/4)));
                     svg.innerHTML += `<line x1="${padLeft}" y1="${y}" x2="${w-padRight}" y2="${y}" class="grid-line" />`;
-                    svg.innerHTML += `<text x="${padLeft - 5}" y="${y+4}" text-anchor="end" class="axis-text">${valLabel}</text>`;
                 }
 
                 data.forEach((d, i) => {
@@ -1149,69 +1078,60 @@
                     const x = padLeft + i * (barW + gap);
                     const y = padTop + availH - valH;
                         
-                    svg.innerHTML += `<rect x="${x}" y="${y}" width="${barW}" height="${valH}" fill="var(--primary)" rx="4" class="bar">
-                        <title>${d.name}: ${d.sales.toFixed(2)}</title>
+                    svg.innerHTML += `<rect x="${x}" y="${y}" width="${barW}" height="${valH}" class="bar">
+                        <title>${d.name}: $${d.sales.toFixed(0)}</title>
                     </rect>`;
-                    svg.innerHTML += `<text x="${x + barW/2}" y="${h - 8}" text-anchor="middle" class="axis-text" font-weight="bold">${d.name.split(' ')[0]}</text>`;
-                    svg.innerHTML += `<text x="${x + barW/2}" y="${y - 5}" text-anchor="middle" fill="#666" font-size="10">${d.sales.toFixed(0)}</text>`;
+                    svg.innerHTML += `<text x="${x + barW/2}" y="${h - 10}" text-anchor="middle" class="axis-text">${d.name.split(' ')[0]}</text>`;
                 });
             },
 
-            // --- IMPROVED CHANNEL CHART WITH % ---
             renderChannelChart: (channelStats) => {
-                const pSvg = document.getElementById('channelChart'); 
-                if(!pSvg) return;
-                pSvg.innerHTML = '';
-
+                const svg = document.getElementById('channelChart'); if(!svg) return;
+                svg.innerHTML = '';
+                
                 let filteredTotal = 0;
                 let filteredData = [];
                 
-                // Apply Mix Filters
                 CONFIG.channels.forEach(c => {
                     if(state.filters.mix.includes(c.id)) {
                         const val = channelStats[c.id]?.sales || 0;
-                        filteredTotal += val;
-                        filteredData.push({ id: c.id, label: c.label, value: val });
+                        if(val > 0) {
+                            filteredTotal += val;
+                            filteredData.push({ id: c.id, label: c.label, value: val });
+                        }
                     }
                 });
 
                 if(filteredTotal === 0) {
                     document.getElementById('donutTotalVal').textContent = "-";
-                    document.getElementById('donutPctVal').textContent = "-";
-                    pSvg.innerHTML = `<circle cx="150" cy="150" r="100" fill="#f1f2f6" /><text x="150" y="150" text-anchor="middle" fill="#999" dy=".3em">No Data</text>`;
+                    svg.innerHTML = `<circle cx="150" cy="150" r="100" fill="#f1f5f9" /><text x="150" y="150" text-anchor="middle" fill="#94a3b8" dy=".3em">No Data</text>`;
                     return;
                 }
 
-                document.getElementById('donutTotalVal').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(filteredTotal);
+                document.getElementById('donutTotalVal').textContent = new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short", style: 'currency', currency: 'USD' }).format(filteredTotal);
 
                 const r = 100, cx = 150, cy = 150;
                 let start = 0;
-                const colors = ['#e65100', '#ff9800', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#f1c40f', '#34495e'];
+                const colors = ['#ea580c', '#fb923c', '#2ecc71', '#3b82f6', '#8b5cf6', '#ef4444', '#f59e0b', '#64748b'];
 
                 filteredData.forEach((ch, i) => {
-                    const val = ch.value;
-                    if(val <= 0) return;
-                    const slice = (val/filteredTotal)*2*Math.PI;
+                    const slice = (ch.value/filteredTotal)*2*Math.PI;
                     const end = start + slice;
                     const x1 = cx + r*Math.cos(start), y1 = cy + r*Math.sin(start);
                     const x2 = cx + r*Math.cos(end), y2 = cy + r*Math.sin(end);
                     const large = slice > Math.PI ? 1 : 0;
                     const pathData = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`;
                     
-                    pSvg.innerHTML += `<path d="${pathData}" fill="${colors[i % colors.length]}" stroke="white" stroke-width="2">
-                        <title>${ch.label}: ${val.toFixed(2)}</title>
+                    svg.innerHTML += `<path d="${pathData}" fill="${colors[i % colors.length]}" class="donut-segment">
+                        <title>${ch.label}: $${ch.value.toFixed(0)} (${((ch.value/filteredTotal)*100).toFixed(1)}%)</title>
                     </path>`;
                     start = end;
                 });
-
-                // Add inner circle for donut effect
-                pSvg.innerHTML += `<circle cx="${cx}" cy="${cy}" r="60" fill="var(--bg-card)" />`;
+                svg.innerHTML += `<circle cx="${cx}" cy="${cy}" r="70" fill="var(--bg-card)" />`;
             },
 
-            // --- IMPROVED DELIVERY TREND WITH FILTER ---
             renderDeliveryTrendChart: () => {
                 const svg = document.getElementById('trendChart');
-                // Remove old paths but keep defs
                 const oldPaths = svg.querySelectorAll('path, line, circle, polyline');
                 oldPaths.forEach(el => el.remove());
 
@@ -1222,23 +1142,20 @@
                 for(let d=1; d<=days; d++) {
                     const iso = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
                     let dailyTotal = 0;
-                    
                     CONFIG.branches.forEach(b => {
                         const branchDay = state.db[b]?.[iso] || {};
                         state.filters.trend.forEach(chId => {
-                            if(branchDay[chId]) {
-                                dailyTotal += parseFloat(branchDay[chId].sales) || 0;
-                            }
+                            if(branchDay[chId]) dailyTotal += parseFloat(branchDay[chId].sales) || 0;
                         });
                     });
                     trendData.push({ day: d, value: dailyTotal });
                 }
 
                 const w = 800, h = 200;
-                const pad = 30;
+                const pad = 20;
                 const maxVal = Math.max(...trendData.map(d => d.value), 100);
                 
-                // Grid lines
+                // Grid
                 for(let i=0; i<=4; i++) {
                     const yPos = h - pad - (i/4)*(h - pad*2);
                     const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -1249,7 +1166,7 @@
                 }
 
                 let points = "";
-                let areaPoints = `${pad},${h-pad} `; // Start bottom-left for area fill
+                let areaPoints = `${pad},${h-pad} `;
                 const stepX = (w - pad*2) / (Math.max(days-1, 1));
 
                 trendData.forEach((d, i) => {
@@ -1257,111 +1174,70 @@
                     const y = h - pad - (d.value / maxVal) * (h - pad*2);
                     points += `${x},${y} `;
                     areaPoints += `${x},${y} `;
-
-                    // Only draw dots if not too crowded
+                    
                     if(days <= 31 || i % 2 === 0) {
                         const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                         circle.setAttribute("cx", x); circle.setAttribute("cy", y);
                         circle.setAttribute("r", 3);
                         circle.setAttribute("class", "trend-dot");
-                        const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
-                        title.textContent = `Day ${d.day}: $${d.value.toFixed(2)}`;
-                        circle.appendChild(title);
+                        circle.innerHTML = `<title>Day ${d.day}: $${d.value.toFixed(0)}</title>`;
                         svg.appendChild(circle);
                     }
                 });
 
-                areaPoints += `${w-pad},${h-pad}`; // Close area at bottom-right
-
-                // Draw Area
+                areaPoints += `${w-pad},${h-pad}`;
+                
                 const polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
                 polygon.setAttribute("points", areaPoints);
                 polygon.setAttribute("class", "trend-area");
                 svg.appendChild(polygon);
 
-                // Draw Line
                 const polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
                 polyline.setAttribute("points", points);
                 polyline.setAttribute("class", "trend-line");
                 svg.appendChild(polyline);
             },
 
-            // --- ROBUST HEATMAP ---
             renderHeatmap: (data) => {
-                const div = document.getElementById('heatmapContainer'); 
-                if(!div) return;
+                const div = document.getElementById('heatmapContainer'); if(!div) return;
                 div.innerHTML = '';
-                
-                if(data.length === 0) {
-                    div.innerHTML = '<div style="padding:20px; text-align:center; color:#999;">No Data Available</div>';
-                    return;
-                }
-
-                div.innerHTML += `<div class="hm-cell hm-header">Branch \\ Channel</div>`;
-                CONFIG.channels.forEach(ch => {
-                    div.innerHTML += `<div class="hm-cell hm-header">${ch.label.substring(0,4)}</div>`;
-                });
+                div.innerHTML += `<div class="hm-cell hm-header">Branch</div>`;
+                CONFIG.channels.forEach(ch => div.innerHTML += `<div class="hm-cell hm-header">${ch.label.substring(0,3)}</div>`);
 
                 data.forEach(b => {
-                    div.innerHTML += `<div class="hm-cell hm-header" style="justify-content:flex-start; padding-left:10px;">${b.name}</div>`;
+                    div.innerHTML += `<div class="hm-cell hm-header" style="justify-content:flex-start; padding-left:8px;">${b.name}</div>`;
                     CONFIG.channels.forEach(ch => {
                         const chData = b.channels[ch.id] || { trn: 0 };
                         const val = chData.trn;
-                        
                         let color = 'bg-zero';
                         if(val >= CONFIG.targets.lowTrnThreshold * 2) color = 'bg-high';
                         else if(val >= CONFIG.targets.lowTrnThreshold) color = 'bg-med';
-                        
                         div.innerHTML += `<div class="hm-cell ${color}" title="${val} TRN">${val}</div>`;
                     });
                 });
             },
             
-            // --- IMPROVED BRANCH TABLE ---
-            renderBranchTable: (data, total) => {
+            renderBranchTable: (data) => {
                 const tables = [document.querySelector('#branchTable tbody'), document.querySelector('#branchTable2 tbody')];
-                const theads = [document.querySelector('#branchTable thead'), document.querySelector('#branchTable2 thead')];
-                
-                // Helper to render a single table body
-                const renderBody = (tbody) => {
+                tables.forEach(tbody => {
+                    if(!tbody) return;
                     tbody.innerHTML = '';
                     data.forEach(b => {
-                        let badgeClass = 'badge-low';
+                        let badgeClass = 'bg-low'; // Reuse heatmap styles or create new ones? Let's use text colors
                         let badgeText = 'Low';
+                        if(b.avg > CONFIG.targets.avgCheck + 5) { badgeText = 'High'; }
+                        else if(b.avg > CONFIG.targets.avgCheck) { badgeText = 'Mid'; }
                         
-                        if(b.avg > CONFIG.targets.avgCheck + 5) { badgeClass = 'badge-high'; badgeText = 'High'; }
-                        else if(b.avg > CONFIG.targets.avgCheck) { badgeClass = 'badge-mid'; badgeText = 'Mid'; }
-
                         const row = `<tr>
                             <td><strong>${b.name}</strong></td>
                             <td class="num">${b.sales.toFixed(2)}</td>
                             <td class="num">${b.trn}</td>
                             <td class="num">${b.avg.toFixed(2)}</td>
-                            <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+                            <td><span style="font-size:0.75rem; padding:2px 6px; border-radius:4px; background:${badgeText==='High'?'var(--success-bg)':badgeText==='Mid'?'var(--warning-bg)':'var(--bg-body)'}; color:${badgeText==='High'?'var(--success)':badgeText==='Mid'?'var(--warning)':'var(--text-muted)'}; font-weight:600;">${badgeText}</span></td>
                         </tr>`;
                         tbody.innerHTML += row;
                     });
-                };
-
-                tables.forEach((tbody, idx) => {
-                    if(tbody) {
-                        // Update Headers for sort icons
-                        if(theads[idx]) {
-                            const headers = theads[idx].querySelectorAll('th');
-                            headers.forEach(th => {
-                                const icon = th.querySelector('i');
-                                if(icon) icon.remove(); // reset
-                                // Check if this column is sorted
-                                const onclick = th.getAttribute('onclick');
-                                if(onclick && onclick.includes(`'${state.sort.col}'`)) {
-                                    th.innerHTML += ` <i class="fas fa-sort-${state.sort.dir === 'asc' ? 'up' : 'down'}" style="margin-left:5px; opacity:0.6;"></i>`;
-                                }
-                            });
-                        }
-                        renderBody(tbody);
-                    }
                 });
-                
                 if(data.length > 0) {
                     const top = data.reduce((p,c)=>p.sales>c.sales?p:c);
                     document.getElementById('kpiTop').innerText = top.sales > 0 ? top.name : "-";
@@ -1371,13 +1247,11 @@
             renderChannelTable: (stats, branchData, total) => {
                 const tbody = document.querySelector('#channelTable tbody');
                 if(!tbody) return;
-                document.querySelector('#channelTable thead').innerHTML = `<tr><th>Channel</th><th>Sales</th><th>TRN</th><th>Avg</th><th>Share</th></tr>`;
                 tbody.innerHTML = '';
                 Object.keys(stats).forEach(k => {
                     const c = stats[k];
                     const avg = c.trn > 0 ? c.sales / c.trn : 0;
                     const share = total.sales > 0 ? ((c.sales / total.sales)*100).toFixed(1) + '%' : '0%';
-                    
                     const row = `<tr>
                         <td><strong>${CONFIG.channels.find(x=>x.id===k).label}</strong></td>
                         <td class="num">${c.sales.toFixed(2)}</td>
@@ -1397,48 +1271,45 @@
 
                 bData.forEach(b => {
                     if(b.trn > 200 && b.avg < CONFIG.targets.avgCheck - 3) {
-                        app.addInsight('alert', `📉 ${b.name}: Upselling Opportunity`, `High transaction volume (${b.trn}) but low average check (${b.avg.toFixed(1)}). Train staff on upselling combos & drinks.`);
+                        app.addInsight('alert', `📉 ${b.name} Needs Upselling`, `High traffic (${b.trn} orders) but low ticket (${b.avg.toFixed(1)}). Promote combos.`);
                     }
                 });
 
-                const aggs = CONFIG.deliveryChannels;
-                aggs.forEach(id => {
+                CONFIG.deliveryChannels.forEach(id => {
                     const share = (cData[id]?.sales || 0) / total.sales * 100;
                     if(share < 3 && total.sales > 0) {
-                        app.addInsight('warn', `📦 ${CONFIG.channels.find(x=>x.id===id).label} is Low`, `Market share is only ${share.toFixed(1)}%. Consider reviewing menu photos or commission rates.`);
+                        app.addInsight('warn', `📦 ${CONFIG.channels.find(x=>x.id===id).label} Underperforming`, `Market share is only ${share.toFixed(1)}%. Review visibility.`);
                     }
                 });
 
                 if(globalAvg > CONFIG.targets.avgCheck) {
-                    app.addInsight('info', `🏆 Performance Excellent`, `Company Avg Check (${globalAvg.toFixed(1)}) exceeds target (${CONFIG.targets.avgCheck}). Keep up the momentum!`);
+                    app.addInsight('success', `🏆 Excellent Performance`, `Company Avg Check (${globalAvg.toFixed(1)}) exceeds target (${CONFIG.targets.avgCheck}).`);
                 }
             },
 
             addInsight: (type, title, text) => {
                 const div = document.createElement('div');
                 div.className = `insight-card ${type}`;
-                div.innerHTML = `<div class="insight-icon"><i class="fas ${type==='alert'?'fa-exclamation-circle':type==='warn'?'fa-exclamation-triangle':'fa-lightbulb'}"></i></div><div><h4 style="margin:0 0 5px 0">${title}</h4><p style="margin:0;color:#666;font-size:0.9rem">${text}</p></div>`;
-                const list = document.getElementById('insightsList');
-                if(list) list.appendChild(div);
+                div.innerHTML = `<div class="insight-icon"><i class="fas ${type==='alert'?'fa-triangle-exclamation':type==='warn'?'fa-circle-exclamation':'fa-bullseye'}"></i></div><div><h4 style="margin:0 0 4px 0">${title}</h4><p style="margin:0;font-size:0.9rem;color:#475569">${text}</p></div>`;
+                document.getElementById('insightsList').appendChild(div);
             },
 
             renderNav: () => {
-                const div = document.getElementById('navList'); 
-                if(!div) return;
+                const div = document.getElementById('navList'); if(!div) return;
                 div.innerHTML = '';
                 CONFIG.branches.forEach((b, i) => {
                     const el = document.createElement('div');
                     el.className = `nav-item ${i===state.activeBranchIdx?'active':''}`;
-                    el.innerHTML = `<span>${b}</span> <small style="opacity:0.5">#${i+1}</small>`;
+                    el.innerHTML = `<span>${b}</span>`;
                     el.onclick = () => {
                         state.activeBranchIdx = i;
                         state.activeFilterBranch = b;
-                        const sel = document.getElementById('branchSelector');
-                        if(sel) sel.value = b;
+                        document.getElementById('branchSelector').value = b;
                         app.renderNav();
                         app.updateContextHeader();
                         if(document.getElementById('view-entry').classList.contains('active')) app.renderEntryForm();
                         app.updatePeriod();
+                        if(window.innerWidth < 768) toggleSidebar(); // Close sidebar on mobile selection
                     };
                     div.appendChild(el);
                 });
@@ -1450,13 +1321,8 @@
                 if(target) target.classList.add('active');
                 
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                // Find the clicked button logic (simplified)
-                const btns = document.querySelectorAll('.tab-btn');
-                if(tab === 'dashboard') btns[0].classList.add('active');
-                if(tab === 'entry') btns[1].classList.add('active');
-                if(tab === 'branches') btns[2].classList.add('active');
-                if(tab === 'channels') btns[3].classList.add('active');
-                if(tab === 'insights') btns[4].classList.add('active');
+                const map = {'dashboard':0, 'entry':1, 'branches':2, 'channels':3, 'insights':4};
+                if(document.querySelectorAll('.tab-btn')[map[tab]]) document.querySelectorAll('.tab-btn')[map[tab]].classList.add('active');
             },
 
             showToast: () => {
@@ -1486,6 +1352,10 @@
                 a.click();
             }
         };
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
 
         window.onload = app.init;
     </script>
